@@ -30,6 +30,6 @@ namespace ProyectoAgroEspinosa_2026.Models
         public ICollection<A_Resource_Adm> recursosadministrador { get; set; }
 
         public int id_proveedor { get; set; }
-        public P_Supplier proveedor { get; set; }
+        public Proveedor proveedor { get; set; }
     }
 }

@@ -23,20 +23,20 @@ namespace ProyectoAgroEspinosa_2026.Models
         [Required]
         public bool estado { get; set; }
 
-        // Relaciones (FKs)
-        //public int id_reporte { get; set; }
-        //public Reporte reporte { get; set; }
+        //Relaciones(FKs)
+        public int id_reporte { get; set; }
+        public Reporte reporte { get; set; }
 
-        //public int id_trabajador { get; set; }
-        //public Trabajador trabajador { get; set; }
+        public int id_trabajador { get; set; }
+        public Trabajador trabajador { get; set; }
 
-        //public int id_inventario { get; set; }
-        //public Inventario inventario { get; set; }
+        public int id_inventario { get; set; }
+        public Inventario inventario { get; set; }
 
-        //public int id_metodo_pago { get; set; }
-        //public MetodoPago metodopago { get; set; }
+        public int id_metodo_pago { get; set; }
+        public MetodoPago metodopago { get; set; }
 
-        //public int id_recursos_administrador { get; set; }
-        //public RecursosAdministrador recursosadministrador { get; set; }
+        public int id_recursos_administrador { get; set; }
+        public A_Resource_Adm recursosadministrador { get; set; }
     }
 }
