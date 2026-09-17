@@ -6,7 +6,7 @@ namespace ProyectoAgroEspinosa_2026.Models
     public class P_Supplier
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int idSupplier { get; set; }
+        public int idProveedor { get; set; }
 
         [Required, StringLength(50)]
         public string nombre { get; set; }
