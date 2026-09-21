@@ -6,30 +6,29 @@ namespace ProyectoAgroEspinosa_2026.Models
     public class R_Resource
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id_recurso { get; set; }
+        public int idRecurso { get; set; }
 
         [Required]
-        public DateTime fecha_ingreso { get; set; }
+        public DateTime fechaingreso { get; set; }
 
         [Required]
-        public int cantidad_recibida { get; set; }
+        public int cantidadrecibida { get; set; }
 
         [Required, StringLength(20)]
-        public string unidad_medida { get; set; }
+        public string unidadmedida { get; set; }
 
         [Required, StringLength(20)]
-        public string tipo_recurso { get; set; }
+        public string tiporecurso { get; set; }
 
         [Required]
-        public float costo_recurso { get; set; }
+        public float costorecurso { get; set; }
 
         [Required]
         public bool estado { get; set; }
 
-
         public ICollection<A_Resource_Adm> recursosadministrador { get; set; }
 
-        public int id_proveedor { get; set; }
-        public Proveedor proveedor { get; set; }
+        public int idProveedor { get; set; }
+        public P_Supplier proveedor { get; set; }
     }
 }

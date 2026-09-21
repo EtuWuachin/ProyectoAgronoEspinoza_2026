@@ -6,7 +6,7 @@ namespace ProyectoAgroEspinosa_2026.Models
     public class K_Worker
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id_trabajador { get; set; }
+        public int idTrabajador { get; set; }
 
         [Required, StringLength(50)]
         public string nombres { get; set; }
@@ -27,7 +27,7 @@ namespace ProyectoAgroEspinosa_2026.Models
         public string email { get; set; }
 
         [Required]
-        public DateTime fecha_contrato { get; set; }
+        public DateTime fechacontrato { get; set; }
 
         [Required]
         public bool estado { get; set; }

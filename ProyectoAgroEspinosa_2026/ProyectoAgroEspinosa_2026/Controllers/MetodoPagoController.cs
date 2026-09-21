@@ -20,8 +20,8 @@ namespace ProyectoAgroEspinosa_2026.Controllers
         [HttpGet]
         public async Task<IActionResult> Listar()
         {
-            List<MetodoPago> lista = await _context.MetodosPagos
-                .Include(m => m.pago)
+            List<M_Paymentmethod> lista = await _context.MetodosPagos
+                .Include(m => m.pagos)
                 .ToListAsync();
             return View(lista);
         }
@@ -29,12 +29,11 @@ namespace ProyectoAgroEspinosa_2026.Controllers
         [HttpGet]
         public IActionResult Nuevo()
         {
-            ViewBag.Pagos = _context.Pagos.ToList();
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Nuevo(MetodoPago metodoPago)
+        public async Task<IActionResult> Nuevo(M_Paymentmethod metodoPago)
         {
             await _context.MetodosPagos.AddAsync(metodoPago);
             await _context.SaveChangesAsync();
@@ -44,15 +43,13 @@ namespace ProyectoAgroEspinosa_2026.Controllers
         [HttpGet]
         public async Task<IActionResult> Editar(int id)
         {
-            MetodoPago metodoPago = await _context.MetodosPagos
-                .Include(m => m.pago)
+            M_Paymentmethod metodoPago = await _context.MetodosPagos
                 .FirstAsync(m => m.IdMetodoPago == id);
-            ViewBag.Pagos = _context.Pagos.ToList();
             return View(metodoPago);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Editar(MetodoPago metodoPago)
+        public async Task<IActionResult> Editar(M_Paymentmethod metodoPago)
         {
             _context.MetodosPagos.Update(metodoPago);
             await _context.SaveChangesAsync();
@@ -62,7 +59,7 @@ namespace ProyectoAgroEspinosa_2026.Controllers
         [HttpGet]
         public async Task<IActionResult> Eliminar(int id)
         {
-            MetodoPago metodoPago = await _context.MetodosPagos
+            M_Paymentmethod metodoPago = await _context.MetodosPagos
                 .FirstAsync(m => m.IdMetodoPago == id);
             _context.MetodosPagos.Remove(metodoPago);
             await _context.SaveChangesAsync();

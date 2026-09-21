@@ -13,7 +13,7 @@ namespace ProyectoAgroEspinosa_2026.Models
         public decimal monto { get; set; }
 
         [Required]
-        public DateTime fecha_pago { get; set; }
+        public DateTime fechapago { get; set; }
 
         [Required, StringLength(100)]
         public string concepto { get; set; }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProyectoAgroEspinosa_2026.Data;
+using ProyectoAgroEspinosa_2026.Models;
 using System.Security.Claims;
 
 namespace ProyectoAgroEspinosa_2026.Controllers
@@ -35,7 +36,7 @@ namespace ProyectoAgroEspinosa_2026.Controllers
                 return View();
             }
 
-            Usuario? usuario = await _context.Usuarios
+            M_UserTT? usuario = await _context.Usuarios
                 .Include(u => u.Rol)
                 .FirstOrDefaultAsync(u =>
                     u.CorreoElectronico == correo &&
@@ -87,17 +88,20 @@ namespace ProyectoAgroEspinosa_2026.Controllers
 
             return RedirectByRol(usuario.Rol.NombreRol);
         }
+
         [HttpGet]
         public IActionResult AccesoDenegado()
         {
             return View();
         }
+
         public async Task<IActionResult> Logout()
         {
             HttpContext.Session.Clear();
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction(nameof(Login));
         }
+
         private IActionResult RedirectByRol(string rol)
         {
             switch (rol)

@@ -20,18 +20,21 @@ namespace ProyectoAgroEspinosa_2026.Controllers
         [HttpGet]
         public async Task<IActionResult> Listar()
         {
-            List<Pago> lista = await _context.Pagos.Include(p => p.metodopago).ToListAsync();
+            List<F_Paid> lista = await _context.Pagos
+                .Include(p => p.metodopago)
+                .ToListAsync();
             return View(lista);
         }
 
         [HttpGet]
         public IActionResult Nuevo()
         {
+            ViewBag.MetodosPago = _context.MetodosPagos.ToList();
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Nuevo(Pago pago)
+        public async Task<IActionResult> Nuevo(F_Paid pago)
         {
             await _context.Pagos.AddAsync(pago);
             await _context.SaveChangesAsync();
@@ -41,12 +44,14 @@ namespace ProyectoAgroEspinosa_2026.Controllers
         [HttpGet]
         public async Task<IActionResult> Editar(int id)
         {
-            Pago pago = await _context.Pagos.FirstAsync(p => p.IdPago == id);
+            F_Paid pago = await _context.Pagos
+                .FirstAsync(p => p.IdPago == id);
+            ViewBag.MetodosPago = _context.MetodosPagos.ToList();
             return View(pago);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Editar(Pago pago)
+        public async Task<IActionResult> Editar(F_Paid pago)
         {
             _context.Pagos.Update(pago);
             await _context.SaveChangesAsync();
@@ -56,7 +61,8 @@ namespace ProyectoAgroEspinosa_2026.Controllers
         [HttpGet]
         public async Task<IActionResult> Eliminar(int id)
         {
-            Pago pago = await _context.Pagos.FirstAsync(p => p.IdPago == id);
+            F_Paid pago = await _context.Pagos
+                .FirstAsync(p => p.IdPago == id);
             _context.Pagos.Remove(pago);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Listar));

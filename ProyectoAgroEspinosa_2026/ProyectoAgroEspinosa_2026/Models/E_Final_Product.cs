@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProyectoAgroEspinosa_2026.Models
 {
-    public class ProductoInicial
+    public class E_Final_Product
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id_producto_inicial { get; set; }
+        public int idProductoFinal { get; set; }
 
         [Required, StringLength(50)]
         public string nombre { get; set; }
@@ -15,24 +15,17 @@ namespace ProyectoAgroEspinosa_2026.Models
         public string descripcion { get; set; }
 
         [Required]
-        public int cantidad_inicial { get; set; }
+        public int cantidadproducida { get; set; }
 
         [Required, StringLength(20)]
-        public string unidad_medida { get; set; }
+        public string unidadmedida { get; set; }
 
         [Required]
-        public float costo_unitario { get; set; }
-
-        [Required]
-        public DateTime fecha_ingreso { get; set; }
-
-        [Required, StringLength(50)]
-        public string proveedor_origen { get; set; }
+        public float precioventa { get; set; }
 
         [Required]
         public bool estado { get; set; }
 
-
-        public ICollection<Inventario> inventario { get; set; }
+        public ICollection<L_Inventory> inventario { get; set; }
     }
 }

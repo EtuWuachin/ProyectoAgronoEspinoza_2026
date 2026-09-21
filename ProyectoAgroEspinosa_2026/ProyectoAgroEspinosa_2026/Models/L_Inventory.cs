@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProyectoAgroEspinosa_2026.Models
 {
-    public class Inventario
+    public class L_Inventory
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id_iventario { get; set; }
+        public int idInventario { get; set; }
 
         [Required, StringLength(50)]
         public string nombre { get; set; }
@@ -15,25 +15,25 @@ namespace ProyectoAgroEspinosa_2026.Models
         public string descripcion { get; set; }
 
         [Required]
-        public int stock_actual { get; set; }
+        public int stockactual { get; set; }
 
         [Required]
-        public int stock_minimo { get; set; }
+        public int stockminimo { get; set; }
 
         [Required, StringLength(20)]
-        public string unidad_medida { get; set; }
+        public string unidadmedida { get; set; }
 
         [Required]
-        public DateTime fecha_actualizacion { get; set; }
+        public DateTime fechaactualizacion { get; set; }
 
         [Required]
         public bool estado { get; set; }
 
-        public int id_producto_inicial { get; set; }
-        public ProductoInicial productoinicial { get; set; }
-        public int id_producto_final { get; set; }
-        public ProductoFinal productofinal { get; set; }
+        public int idProductoInicial { get; set; }
+        public E_Initial_Product productoinicial { get; set; }
 
+        public int idProductoFinal { get; set; }
+        public E_Final_Product productofinal { get; set; }
 
         public ICollection<T_AdmTT> administracion { get; set; }
     }

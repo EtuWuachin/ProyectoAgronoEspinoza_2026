@@ -10,230 +10,228 @@ namespace ProyectoAgroEspinosa_2026.Data
         }
 
         public DbSet<T_AdmTT> Administraciones { get; set; }
-        public DbSet<Inventario> Inventarios { get; set; }
-        public DbSet<MetodoPago> MetodosPagos { get; set; }
-        public DbSet<Pago> Pagos { get; set; }
-        public DbSet<ProductoFinal> ProductosFinales { get; set; }
-        public DbSet<ProductoInicial> ProductosIniciales { get; set; }
-        public DbSet<Proveedor> Proveedores { get; set; }
+        public DbSet<L_Inventory> Inventarios { get; set; }
+        public DbSet<M_Paymentmethod> MetodosPagos { get; set; }
+        public DbSet<F_Paid> Pagos { get; set; }
+        public DbSet<E_Final_Product> ProductosFinales { get; set; }
+        public DbSet<E_Initial_Product> ProductosIniciales { get; set; }
+        public DbSet<P_Supplier> Proveedores { get; set; }
         public DbSet<R_Resource> Recursos { get; set; }
         public DbSet<A_Resource_Adm> RecursosAdministradores { get; set; }
-        public DbSet<Reporte> Reportes { get; set; }
-        public DbSet<Trabajador> Trabajadores { get; set; }
+        public DbSet<G_Report> Reportes { get; set; }
+        public DbSet<K_Worker> Trabajadores { get; set; }
         public DbSet<M_UserTT> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Relaciones de inventario
-            modelBuilder.Entity<Inventario>()
+            // Inventario
+            modelBuilder.Entity<L_Inventory>()
                 .HasOne(i => i.productoinicial)
                 .WithMany(p => p.inventario)
-                .HasForeignKey(i => i.id_producto_inicial);
+                .HasForeignKey(i => i.idProductoInicial);
 
-            modelBuilder.Entity<Inventario>()
+            modelBuilder.Entity<L_Inventory>()
                 .HasOne(i => i.productofinal)
                 .WithMany(p => p.inventario)
-                .HasForeignKey(i => i.id_producto_final);
+                .HasForeignKey(i => i.idProductoFinal);
 
-            // Relación recurso - proveedor
+            // Recurso - Proveedor
             modelBuilder.Entity<R_Resource>()
                 .HasOne(r => r.proveedor)
                 .WithMany(p => p.recurso)
-                .HasForeignKey(r => r.id_proveedor);
+                .HasForeignKey(r => r.idProveedor);
 
-            // Relación recursos_administrador - recurso
+            // RecursosAdministrador - Recurso
             modelBuilder.Entity<A_Resource_Adm>()
                 .HasOne(ra => ra.recurso)
                 .WithMany(r => r.recursosadministrador)
-                .HasForeignKey(ra => ra.id_recurso);
+                .HasForeignKey(ra => ra.idRecurso);
 
-            // Relación MetodoPago - Pago
-            modelBuilder.Entity<MetodoPago>()
-                .HasOne(mp => mp.pago)
-                .WithMany(p => p.metodopago)
-                .HasForeignKey(mp => mp.id_pago);
+            // Pago - MetodoPago (un pago tiene un método, un método tiene muchos pagos)
+            modelBuilder.Entity<F_Paid>()
+                .HasOne(p => p.metodopago)
+                .WithMany(mp => mp.pagos)
+                .HasForeignKey(p => p.IdMetodoPago);
 
-            // Relaciones de Administracion (Tabla Central)
+            // Administracion (tabla central)
             modelBuilder.Entity<T_AdmTT>()
                 .HasOne(a => a.reporte)
                 .WithMany(r => r.administracion)
-                .HasForeignKey(a => a.id_reporte);
+                .HasForeignKey(a => a.idReporte);
 
             modelBuilder.Entity<T_AdmTT>()
                 .HasOne(a => a.trabajador)
                 .WithMany(t => t.administracion)
-                .HasForeignKey(a => a.id_trabajador);
+                .HasForeignKey(a => a.idTrabajador);
 
             modelBuilder.Entity<T_AdmTT>()
                 .HasOne(a => a.inventario)
                 .WithMany(i => i.administracion)
-                .HasForeignKey(a => a.id_inventario);
+                .HasForeignKey(a => a.idInventario);
 
             modelBuilder.Entity<T_AdmTT>()
-                .HasOne(a => a.metodopago)
-                .WithMany(mp => mp.administracion)
-                .HasForeignKey(a => a.id_metodo_pago);
+                .HasOne(a => a.pago)
+                .WithMany(p => p.administracion)
+                .HasForeignKey(a => a.IdPago);
 
             modelBuilder.Entity<T_AdmTT>()
                 .HasOne(a => a.recursosadministrador)
                 .WithMany()
-                .HasForeignKey(a => a.id_recursos_administrador);
+                .HasForeignKey(a => a.idRecursosAdministrador);
 
-            // Relación Usuario - Rol
+            // Usuario - Rol
             modelBuilder.Entity<M_UserTT>()
                 .HasOne(u => u.Rol)
-                .WithMany()
+                .WithMany(r => r.Usuario)
                 .HasForeignKey(u => u.IdRol)
                 .OnDelete(DeleteBehavior.Restrict);
-            // Seed Roles
+
+            // ---------- SEEDS ----------
             modelBuilder.Entity<U_RoleCC>().HasData(
                 new U_RoleCC { IdRol = 1, NombreRol = "Administrador", Estado = true },
                 new U_RoleCC { IdRol = 2, NombreRol = "Trabajador", Estado = true }
             );
-            // Reporte
-            modelBuilder.Entity<Reporte>().HasData(
-                new Reporte
+
+            modelBuilder.Entity<G_Report>().HasData(
+                new G_Report
                 {
-                    id_reporte = 1,
+                    idReporte = 1,
                     titulo = "Reporte Inicial",
-                    tipo_reporte = "General",
-                    fecha_generacion = new DateTime(2025, 1, 1),
+                    tiporeporte = "General",
+                    fechageneracion = new DateTime(2025, 1, 1),
                     contenido = "Reporte generado por el sistema",
-                    generado_por = "Sistema",
+                    generadopor = "Sistema",
                     estado = true
                 });
-            // Pago 
-            modelBuilder.Entity<Pago>().HasData(
-                new Pago
-                {
-                    IdPago = 1,
-                    monto = 0.00m,
-                    fecha_pago = new DateTime(2025, 1, 1),
-                    concepto = "Pago inicial",
-                    comprobante = "COMP-0001",
-                    estado = true
-                });
-            // MetodoPago
-            modelBuilder.Entity<MetodoPago>().HasData(
-                new MetodoPago
+
+            modelBuilder.Entity<M_Paymentmethod>().HasData(
+                new M_Paymentmethod
                 {
                     IdMetodoPago = 1,
                     nombre = "Efectivo",
                     descripcion = "Pago en efectivo",
-                    estado = true,
-                    id_pago = 1
+                    estado = true
                 });
-            // ProductoInicial 
-            modelBuilder.Entity<ProductoInicial>().HasData(
-                new ProductoInicial
+
+            modelBuilder.Entity<F_Paid>().HasData(
+                new F_Paid
                 {
-                    id_producto_inicial = 1,
+                    IdPago = 1,
+                    monto = 0.00m,
+                    fechapago = new DateTime(2025, 1, 1),
+                    concepto = "Pago inicial",
+                    comprobante = "COMP-0001",
+                    estado = true,
+                    IdMetodoPago = 1
+                });
+
+            modelBuilder.Entity<E_Initial_Product>().HasData(
+                new E_Initial_Product
+                {
+                    idProductoInicial = 1,
                     nombre = "Producto Inicial Demo",
                     descripcion = "Producto de prueba",
-                    cantidad_inicial = 0,
-                    unidad_medida = "kg",
-                    costo_unitario = 0.0f,
-                    fecha_ingreso = new DateTime(2025, 1, 1),
-                    proveedor_origen = "Demo",
+                    cantidadinicial = 0,
+                    unidadmedida = "kg",
+                    costounitario = 0.0f,
+                    fechaingreso = new DateTime(2025, 1, 1),
+                    proveedororigen = "Demo",
                     estado = true
                 });
-            // ProductoFinal
-            modelBuilder.Entity<ProductoFinal>().HasData(
-                new ProductoFinal
+
+            modelBuilder.Entity<E_Final_Product>().HasData(
+                new E_Final_Product
                 {
-                    id_producto_final = 1,
+                    idProductoFinal = 1,
                     nombre = "Producto Final Demo",
                     descripcion = "Producto de prueba",
-                    cantidad_producida = 0,
-                    unidad_medida = "kg",
-                    precio_venta = 0.0f,
+                    cantidadproducida = 0,
+                    unidadmedida = "kg",
+                    precioventa = 0.0f,
                     estado = true
                 });
-            // 8. Inventario
-            modelBuilder.Entity<Inventario>().HasData(
-                new Inventario
+
+            modelBuilder.Entity<L_Inventory>().HasData(
+                new L_Inventory
                 {
-                    id_iventario = 1,
+                    idInventario = 1,
                     nombre = "Inventario General",
                     descripcion = "Inventario inicial del sistema",
-                    stock_actual = 0,
-                    stock_minimo = 0,
-                    unidad_medida = "kg",
-                    fecha_actualizacion = new DateTime(2025, 1, 1),
+                    stockactual = 0,
+                    stockminimo = 0,
+                    unidadmedida = "kg",
+                    fechaactualizacion = new DateTime(2025, 1, 1),
                     estado = true,
-                    id_producto_inicial = 1,
-                    id_producto_final = 1
-                }
-            );
-            // Proveedor
-            modelBuilder.Entity<Proveedor>().HasData(
-                new Proveedor
+                    idProductoInicial = 1,
+                    idProductoFinal = 1
+                });
+
+            modelBuilder.Entity<P_Supplier>().HasData(
+                new P_Supplier
                 {
-                    id_proveedor = 1,
+                    idProveedor = 1,
                     nombre = "Proveedor Demo",
                     ruc = "00000000000",
                     direccion = "Sin dirección",
                     telefono = "000000000",
                     email = "proveedor@demo.com",
                     estado = true
-                }
-            );
-            // Recurso 
+                });
+
             modelBuilder.Entity<R_Resource>().HasData(
                 new R_Resource
                 {
-                    id_recurso = 1,
-                    fecha_ingreso = new DateTime(2025, 1, 1),
-                    cantidad_recibida = 0,
-                    unidad_medida = "kg",
-                    tipo_recurso = "General",
-                    costo_recurso = 0.0f,
+                    idRecurso = 1,
+                    fechaingreso = new DateTime(2025, 1, 1),
+                    cantidadrecibida = 0,
+                    unidadmedida = "kg",
+                    tiporecurso = "General",
+                    costorecurso = 0.0f,
                     estado = true,
-                    id_proveedor = 1
-                }
-            );
-            // RecursosAdministrador
+                    idProveedor = 1
+                });
+
             modelBuilder.Entity<A_Resource_Adm>().HasData(
                 new A_Resource_Adm
                 {
-                    id_recursos_administrador = 1,
-                    fecha_recepcion = new DateTime(2025, 1, 1),
-                    cantidad_recibida = 0,
+                    idRecursosAdministrador = 1,
+                    fecharecepcion = new DateTime(2025, 1, 1),
+                    cantidadrecibida = 0,
                     observaciones = "Registro inicial",
                     estado = true,
-                    id_recurso = 1
-                }
-            );
-            modelBuilder.Entity<Trabajador>().HasData(
-            new Trabajador
-            {
-                id_trabajador = 1,
-                nombres = "Trabajador",
-                apellidos = "Demo",
-                dni = "00000000",
-                cargo = "General",
-                telefono = "000000000",
-                email = "trabajador@agronomia.com",
-                fecha_contrato = new DateTime(2025, 1, 1),
-                estado = true
-            });
+                    idRecurso = 1
+                });
+
+            modelBuilder.Entity<K_Worker>().HasData(
+                new K_Worker
+                {
+                    idTrabajador = 1,
+                    nombres = "Trabajador",
+                    apellidos = "Demo",
+                    dni = "00000000",
+                    cargo = "General",
+                    telefono = "000000000",
+                    email = "trabajador@agronomia.com",
+                    fechacontrato = new DateTime(2025, 1, 1),
+                    estado = true
+                });
+
             modelBuilder.Entity<T_AdmTT>().HasData(
                 new T_AdmTT
                 {
                     IdAdministracion = 1,
                     nombre = "Administración General",
                     descripcion = "Registro inicial del sistema",
-                    fecha_registro = new DateTime(2025, 1, 1),
+                    fecharegistro = new DateTime(2025, 1, 1),
                     responsable = "Sistema",
                     estado = true,
-                    id_reporte = 1,
-                    id_trabajador = 1,
-                    id_inventario = 1,
-                    id_metodo_pago = 1,
-                    id_recursos_administrador = 1
+                    idReporte = 1,
+                    idTrabajador = 1,
+                    idInventario = 1,
+                    IdPago = 1,
+                    idRecursosAdministrador = 1
                 });
 
-            // Seed Usuarios
             modelBuilder.Entity<M_UserTT>().HasData(
                 new M_UserTT
                 {
@@ -257,5 +255,4 @@ namespace ProyectoAgroEspinosa_2026.Data
             base.OnModelCreating(modelBuilder);
         }
     }
-    
 }

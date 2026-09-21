@@ -6,13 +6,13 @@ namespace ProyectoAgroEspinosa_2026.Models
     public class A_Resource_Adm
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id_recursos_administrador { get; set; }
+        public int idRecursosAdministrador { get; set; }
 
         [Required]
-        public DateTime fecha_recepcion { get; set; }
+        public DateTime fecharecepcion { get; set; }
 
         [Required]
-        public int cantidad_recibida { get; set; }
+        public int cantidadrecibida { get; set; }
 
         [Required, StringLength(50)]
         public string observaciones { get; set; }
@@ -21,7 +21,7 @@ namespace ProyectoAgroEspinosa_2026.Models
         public bool estado { get; set; }
 
 
-        public int id_recurso { get; set; }
+        public int idRecurso { get; set; }
         public R_Resource recurso { get; set; }
 
     }

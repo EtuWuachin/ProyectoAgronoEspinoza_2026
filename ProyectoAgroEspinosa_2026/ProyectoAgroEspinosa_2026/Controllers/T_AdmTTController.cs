@@ -23,12 +23,13 @@ namespace ProyectoAgroEspinosa_2026.Controllers
             List<T_AdmTT> lista = await _context.Administraciones
                 .Include(a => a.trabajador)
                 .Include(a => a.inventario)
-                .Include(a => a.metodopago)
+                .Include(a => a.pago)
                 .Include(a => a.reporte)
                 .Include(a => a.recursosadministrador)
                 .ToListAsync();
             return View(lista);
         }
+
         [Authorize(Roles = "Administrador")]
         [HttpGet]
         public IActionResult Nuevo()
@@ -36,6 +37,7 @@ namespace ProyectoAgroEspinosa_2026.Controllers
             CargarViewBags();
             return View();
         }
+
         [Authorize(Roles = "Administrador")]
         [HttpPost]
         public async Task<IActionResult> Nuevo(T_AdmTT administracion)
@@ -44,6 +46,7 @@ namespace ProyectoAgroEspinosa_2026.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Listar));
         }
+
         [Authorize(Roles = "Administrador")]
         [HttpGet]
         public async Task<IActionResult> Editar(int id)
@@ -51,13 +54,14 @@ namespace ProyectoAgroEspinosa_2026.Controllers
             T_AdmTT administracion = await _context.Administraciones
                 .Include(a => a.trabajador)
                 .Include(a => a.inventario)
-                .Include(a => a.metodopago)
+                .Include(a => a.pago)
                 .Include(a => a.reporte)
                 .Include(a => a.recursosadministrador)
                 .FirstAsync(a => a.IdAdministracion == id);
             CargarViewBags();
             return View(administracion);
         }
+
         [Authorize(Roles = "Administrador")]
         [HttpPost]
         public async Task<IActionResult> Editar(T_AdmTT administracion)
@@ -66,6 +70,7 @@ namespace ProyectoAgroEspinosa_2026.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Listar));
         }
+
         [Authorize(Roles = "Administrador")]
         [HttpGet]
         public async Task<IActionResult> Eliminar(int id)
@@ -76,11 +81,12 @@ namespace ProyectoAgroEspinosa_2026.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Listar));
         }
+
         private void CargarViewBags()
         {
             ViewBag.Trabajadores = _context.Trabajadores.ToList();
             ViewBag.Inventarios = _context.Inventarios.ToList();
-            ViewBag.MetodosPago = _context.MetodosPagos.ToList();
+            ViewBag.Pagos = _context.Pagos.ToList();
             ViewBag.Reportes = _context.Reportes.ToList();
             ViewBag.RecursosAdmin = _context.RecursosAdministradores.ToList();
         }

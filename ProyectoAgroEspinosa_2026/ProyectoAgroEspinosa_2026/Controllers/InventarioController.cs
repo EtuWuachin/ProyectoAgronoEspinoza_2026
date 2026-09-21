@@ -20,7 +20,7 @@ namespace ProyectoAgroEspinosa_2026.Controllers
         [HttpGet]
         public async Task<IActionResult> Listar()
         {
-            List<Inventario> lista = await _context.Inventarios
+            List<L_Inventory> lista = await _context.Inventarios
                 .Include(i => i.productoinicial)
                 .Include(i => i.productofinal)
                 .ToListAsync();
@@ -35,7 +35,7 @@ namespace ProyectoAgroEspinosa_2026.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Nuevo(Inventario inventario)
+        public async Task<IActionResult> Nuevo(L_Inventory inventario)
         {
             await _context.Inventarios.AddAsync(inventario);
             await _context.SaveChangesAsync();
@@ -45,16 +45,16 @@ namespace ProyectoAgroEspinosa_2026.Controllers
         [HttpGet]
         public async Task<IActionResult> Editar(int id)
         {
-            Inventario inventario = await _context.Inventarios
+            L_Inventory inventario = await _context.Inventarios
                 .Include(i => i.productoinicial)
                 .Include(i => i.productofinal)
-                .FirstAsync(i => i.id_iventario == id);
+                .FirstAsync(i => i.idInventario == id);
             CargarViewBags();
             return View(inventario);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Editar(Inventario inventario)
+        public async Task<IActionResult> Editar(L_Inventory inventario)
         {
             _context.Inventarios.Update(inventario);
             await _context.SaveChangesAsync();
@@ -64,8 +64,8 @@ namespace ProyectoAgroEspinosa_2026.Controllers
         [HttpGet]
         public async Task<IActionResult> Eliminar(int id)
         {
-            Inventario inventario = await _context.Inventarios
-                .FirstAsync(i => i.id_iventario == id);
+            L_Inventory inventario = await _context.Inventarios
+                .FirstAsync(i => i.idInventario == id);
             _context.Inventarios.Remove(inventario);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Listar));
