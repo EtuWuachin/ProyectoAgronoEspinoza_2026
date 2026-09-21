@@ -3,14 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProyectoAgroEspinosa_2026.Models
 {
-    public class P_Supplier
+    public class Proveedor
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-<<<<<<< HEAD
         public int id_proveedor { get; set; }
-=======
-        public int idProveedor { get; set; }
->>>>>>> origin/Kyoharo
 
         [Required, StringLength(50)]
         public string nombre { get; set; }
