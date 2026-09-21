@@ -1,0 +1,65 @@
+﻿﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iniciar Sesión - Agronomia Espinoza</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/login/login.css" asp-append-version="true" />
+</head>
+<body>
+
+    <nav class="navbar">
+        <img src="~/Logo Proyecto Agronomia.png" alt="Logo Agronomía" onerror="this.style.display='none'" />
+    </nav>
+
+    <div class="login-wrapper">
+        <div class="login-box">
+            <h1 class="login-title">Iniciar Sesión</h1>
+            <p class="login-subtitle">Ingrese sus datos para continuar</p>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert-error">
+                    <i class="material-icons" style="font-size:18px;">error_outline</i>
+                    @ViewBag.Error
+                </div>
+            }
+
+            <form asp-controller="Login" asp-action="Login" method="post" autocomplete="off" id="formLogin">
+
+                <div class="input-group-custom">
+                    <i class="material-icons">person_outline</i>
+                    <input type="email" name="correo" id="inputCorreo" placeholder="Ingrese su correo electrónico"
+                           maxlength="100" required />
+                </div>
+                <span class="field-error" id="errorCorreo"></span>
+
+                <div class="input-group-custom">
+                    <i class="material-icons">lock_outline</i>
+                    <input type="password" name="contrasena" id="inputPassword" placeholder="Ingrese su Contraseña"
+                           maxlength="50" required />
+                    <i class="material-icons toggle-pw" id="togglePw">visibility</i>
+                </div>
+
+                <div class="input-group-custom">
+                    <i class="material-icons">badge</i>
+                    <select name="rolSeleccionado" id="selectRol" required>
+                        <option value="">-- Seleccione su rol --</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Trabajador">Trabajador</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-login">Continuar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="~/js/login/login.js" asp-append-version="true"></script>
+    <script src="https://cdn.userway.org/widget.js" data-account="s2k5qqP9pX"></script>
+</body>
+</html>

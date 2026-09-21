@@ -32,7 +32,7 @@ namespace ProyectoAgroEspinosa_2026.Controllers
         {
             if (string.IsNullOrWhiteSpace(correo) || string.IsNullOrWhiteSpace(contrasena))
             {
-                ViewData["Mensaje"] = "Ingrese correo y contraseña.";
+                ViewBag.Error = "Ingrese correo y contraseña.";
                 return View();
             }
 
@@ -46,13 +46,13 @@ namespace ProyectoAgroEspinosa_2026.Controllers
 
             if (usuario == null)
             {
-                ViewData["Mensaje"] = "No se encontraron usuarios o el rol es incorrecto.";
+                ViewBag.Error = "No se encontraron usuarios o el rol es incorrecto.";
                 return View();
             }
 
             if (!usuario.Rol.Estado)
             {
-                ViewData["Mensaje"] = "Su rol se encuentra inactivo. Contacte al administrador.";
+                ViewBag.Error = "Su rol se encuentra inactivo. Contacte al administrador.";
                 return View();
             }
 
@@ -107,7 +107,7 @@ namespace ProyectoAgroEspinosa_2026.Controllers
             switch (rol)
             {
                 case "Administrador":
-                    return RedirectToAction("Listar", "Administracion");
+                    return RedirectToAction("Listar", "T_AdmTT");
 
                 case "Trabajador":
                     return RedirectToAction("Listar", "Inventario");

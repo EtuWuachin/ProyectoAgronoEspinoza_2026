@@ -1,0 +1,111 @@
+﻿@model List<ProyectoAgroEspinosa_2026.Models.L_Inventory>
+
+<div class="container-fluid px-4">
+    <div class="page-header">
+        <h2 class="page-title">Gestión de Inventario</h2>
+        <a asp-controller="Inventario" asp-action="Nuevo" class="btn-registrar">
+            <i class="material-icons" style="font-size: 20px;">add</i> Registrar Inventario
+        </a>
+    </div>
+
+    <div class="search-field">
+        <div class="input-group">
+            <span class="input-group-text bg-white border-success text-success">
+                <i class="material-icons">search</i>
+            </span>
+            <input type="text" id="buscador" class="form-control border-success" placeholder="Buscar inventario..." />
+        </div>
+    </div>
+
+    <div class="table-card">
+        <div class="table-scroll">
+            <table class="table table-hover m-0" id="tablaInventario">
+                <thead>
+                    <tr style="border-bottom: 2px solid #2D6A4F;">
+                        <th class="mat-mdc-header-cell px-3 py-3">ID</th>
+                        <th class="mat-mdc-header-cell py-3">Nombre</th>
+                        <th class="mat-mdc-header-cell py-3">Stock Actual</th>
+                        <th class="mat-mdc-header-cell py-3">Stock Mínimo</th>
+                        <th class="mat-mdc-header-cell py-3">Unidad</th>
+                        <th class="mat-mdc-header-cell py-3">Producto Inicial</th>
+                        <th class="mat-mdc-header-cell py-3">Producto Final</th>
+                        <th class="mat-mdc-header-cell py-3">Actualización</th>
+                        <th class="mat-mdc-header-cell py-3">Estado</th>
+                        <th class="mat-mdc-header-cell text-center py-3">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model == null || !Model.Any())
+                    {
+                        <tr><td class="no-data" colspan="10">No hay inventarios registrados</td></tr>
+                    }
+                    else
+                    {
+                        foreach (var row in Model)
+                        {
+                            <tr class="align-middle">
+                                <td class="mat-mdc-cell px-3">@row.idInventario</td>
+                                <td class="mat-mdc-cell fw-medium">@row.nombre</td>
+                                <td class="mat-mdc-cell">
+                                    <span class="badge @(row.stockactual <= row.stockminimo ? "badge-warning" : "badge-active")">
+                                        @row.stockactual
+                                    </span>
+                                </td>
+                                <td class="mat-mdc-cell">@row.stockminimo</td>
+                                <td class="mat-mdc-cell">@row.unidadmedida</td>
+                                <td class="mat-mdc-cell">@(row.productoinicial?.nombre ?? "—")</td>
+                                <td class="mat-mdc-cell">@(row.productofinal?.nombre ?? "—")</td>
+                                <td class="mat-mdc-cell">@row.fechaactualizacion.ToString("dd/MM/yyyy")</td>
+                                <td class="mat-mdc-cell">
+                                    <span class="badge @(row.estado ? "badge-active" : "badge-inactive")">
+                                        @(row.estado ? "Activo" : "Inactivo")
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <a asp-controller="Inventario" asp-action="Editar" asp-route-id="@row.idInventario" class="btn btn-link btn-edit p-1">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+                                    <a asp-controller="Inventario" asp-action="Eliminar" asp-route-id="@row.idInventario" class="btn btn-link btn-delete p-1" onclick="return confirmarEliminarInventario()">
+                                        <i class="material-icons">delete</i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="paginator" id="paginador">
+            <span class="paginator-info" id="paginadorInfo"></span>
+
+            <div class="paginator-size">
+                <span>Filas por página:</span>
+                <select id="tamanoPagina">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="25">25</option>
+                </select>
+            </div>
+
+            <div class="paginator-nav">
+                <span class="paginator-page" id="paginadorPagina"></span>
+                <button id="btnPagAnterior" title="Página anterior">
+                    <i class="material-icons">chevron_left</i>
+                </button>
+                <button id="btnPagSiguiente" title="Página siguiente">
+                    <i class="material-icons">chevron_right</i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/inventario/inventario.css" asp-append-version="true" />
+}
+
+@section Scripts {
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="~/js/inventario/inventario.js" asp-append-version="true"></script>
+}

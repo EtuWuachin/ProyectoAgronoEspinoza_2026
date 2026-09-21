@@ -1,0 +1,89 @@
+﻿@model ProyectoAgroEspinosa_2026.Models.E_Initial_Product
+
+<div class="form-page">
+    <h2 class="form-title">Modificar Producto Inicial</h2>
+    <div class="form-card">
+        <form asp-controller="E_Initial_Product" asp-action="Editar" method="post" autocomplete="off" id="formProductoInicial">
+
+            <input type="hidden" asp-for="idProductoInicial" />
+
+            <div class="form-grid">
+
+                <div class="mb-3 field-span2">
+                    <label class="form-label">Nombre del Producto</label>
+                    <input type="text" class="form-control border-success"
+                           maxlength="100" asp-for="nombre" required />
+                    <span class="field-error"></span>
+                </div>
+
+                <div class="mb-3 field-span2">
+                    <label class="form-label">Descripción</label>
+                    <input type="text" class="form-control border-success"
+                           maxlength="250" asp-for="descripcion" required />
+                    <span class="field-error"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Cantidad Inicial</label>
+                    <input type="number" class="form-control border-success"
+                           min="1" max="100000" asp-for="cantidadinicial" required />
+                    <span class="field-error"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Unidad de Medida</label>
+                    <input type="text" class="form-control border-success"
+                           maxlength="20" asp-for="unidadmedida" required />
+                    <span class="field-error"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Costo Unitario (S/.)</label>
+                    <input type="number" step="0.01" class="form-control border-success"
+                           min="0.01" max="1000000" asp-for="costounitario" required />
+                    <span class="field-error"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Fecha de Ingreso</label>
+                    <input type="date" class="form-control border-success" asp-for="fechaingreso" required />
+                    <span class="field-error"></span>
+                </div>
+
+                <div class="mb-3 field-span2">
+                    <label class="form-label">Proveedor Origen</label>
+                    <input type="text" class="form-control border-success"
+                           maxlength="100" asp-for="proveedororigen" required />
+                    <span class="field-error"></span>
+                </div>
+
+                <div class="mb-3 field-span2">
+                    <label class="form-label">Estado</label>
+                    <select class="form-select border-success" asp-for="estado" required>
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <a asp-controller="E_Initial_Product" asp-action="Listar" class="btn-cancel">
+                    <i class="material-icons" style="font-size: 18px;">cancel</i> Cancelar
+                </a>
+                <button type="submit" class="btn-submit">
+                    <i class="material-icons" style="font-size: 18px;">done</i> Actualizar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/productoinicial/productoinicial.css" asp-append-version="true" />
+}
+
+@section Scripts {
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="~/js/productoinicial/productoinicial.js" asp-append-version="true"></script>
+}
