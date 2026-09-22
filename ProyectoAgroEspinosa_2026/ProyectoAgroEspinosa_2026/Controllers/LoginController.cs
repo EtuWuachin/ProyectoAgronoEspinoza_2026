@@ -28,7 +28,7 @@ namespace ProyectoAgroEspinosa_2026.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(string correo, string contrasena, string rolSeleccionado)
+        public async Task<IActionResult> Login(string correo, string contrasena)
         {
             if (string.IsNullOrWhiteSpace(correo) || string.IsNullOrWhiteSpace(contrasena))
             {
@@ -41,12 +41,11 @@ namespace ProyectoAgroEspinosa_2026.Controllers
                 .FirstOrDefaultAsync(u =>
                     u.CorreoElectronico == correo &&
                     u.Contrasena == contrasena &&
-                    u.Estado == true &&
-                    u.Rol.NombreRol == rolSeleccionado);
+                    u.Estado == true);
 
             if (usuario == null)
             {
-                ViewBag.Error = "No se encontraron usuarios o el rol es incorrecto.";
+                ViewBag.Error = "Correo o contraseña incorrectos.";
                 return View();
             }
 
@@ -107,10 +106,8 @@ namespace ProyectoAgroEspinosa_2026.Controllers
             switch (rol)
             {
                 case "Administrador":
-                    return RedirectToAction("Listar", "T_AdmTT");
-
                 case "Trabajador":
-                    return RedirectToAction("Listar", "Inventario");
+                    return RedirectToAction("Listar", "L_Inventory");
 
                 default:
                     return RedirectToAction(nameof(Login));

@@ -8,11 +8,11 @@ namespace ProyectoAgroEspinosa_2026.Controllers
 {
     [Authorize]
     [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-    public class PagoController : Controller
+    public class F_PaidController : Controller
     {
         private readonly AppDbContext _context;
 
-        public PagoController(AppDbContext context)
+        public F_PaidController(AppDbContext context)
         {
             _context = context;
         }
@@ -45,6 +45,7 @@ namespace ProyectoAgroEspinosa_2026.Controllers
         public async Task<IActionResult> Editar(int id)
         {
             F_Paid pago = await _context.Pagos
+                .Include(p => p.metodopago)
                 .FirstAsync(p => p.IdPago == id);
             ViewBag.MetodosPago = _context.MetodosPagos.ToList();
             return View(pago);

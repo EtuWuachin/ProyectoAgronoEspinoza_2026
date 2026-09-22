@@ -8,11 +8,11 @@ namespace ProyectoAgroEspinosa_2026.Controllers
 {
     [Authorize]
     [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-    public class MetodoPagoController : Controller
+    public class M_PaymentmethodController : Controller
     {
         private readonly AppDbContext _context;
 
-        public MetodoPagoController(AppDbContext context)
+        public M_PaymentmethodController(AppDbContext context)
         {
             _context = context;
         }

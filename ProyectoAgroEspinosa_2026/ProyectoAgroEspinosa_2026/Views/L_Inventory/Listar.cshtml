@@ -3,7 +3,7 @@
 <div class="container-fluid px-4">
     <div class="page-header">
         <h2 class="page-title">Gestión de Inventario</h2>
-        <a asp-controller="Inventario" asp-action="Nuevo" class="btn-registrar">
+        <a asp-controller="L_Inventory" asp-action="Nuevo" class="btn-registrar">
             <i class="material-icons" style="font-size: 20px;">add</i> Registrar Inventario
         </a>
     </div>
@@ -62,10 +62,10 @@
                                     </span>
                                 </td>
                                 <td class="text-center">
-                                    <a asp-controller="Inventario" asp-action="Editar" asp-route-id="@row.idInventario" class="btn btn-link btn-edit p-1">
+                                    <a asp-controller="L_Inventory" asp-action="Editar" asp-route-id="@row.idInventario" class="btn btn-link btn-edit p-1">
                                         <i class="material-icons">edit</i>
                                     </a>
-                                    <a asp-controller="Inventario" asp-action="Eliminar" asp-route-id="@row.idInventario" class="btn btn-link btn-delete p-1" onclick="return confirmarEliminarInventario()">
+                                    <a asp-controller="L_Inventory" asp-action="Eliminar" asp-route-id="@row.idInventario" class="btn btn-link btn-delete p-1" onclick="return confirmarEliminarInventario()">
                                         <i class="material-icons">delete</i>
                                     </a>
                                 </td>

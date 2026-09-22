@@ -8,12 +8,11 @@ namespace ProyectoAgroEspinosa_2026.Controllers
 {
     [Authorize]
     [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-    public class InventarioController : Controller
+    public class L_InventoryController : Controller
     {
         private readonly AppDbContext _context;
 
-        public InventarioController(AppDbContext context)
-        {
+        public L_InventoryController(AppDbContext context)        {
             _context = context;
         }
 

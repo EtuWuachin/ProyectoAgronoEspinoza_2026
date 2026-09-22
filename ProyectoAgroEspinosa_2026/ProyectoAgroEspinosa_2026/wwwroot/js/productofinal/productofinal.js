@@ -162,6 +162,62 @@
         });
     }
 
+    // ── Función de Ordenamiento (misma lógica usada en administracion.js) ──
+    function habilitarOrdenamiento(tabla, filas, alOrdenar) {
+        const tbody = tabla.querySelector('tbody');
+        const headers = tabla.querySelectorAll('th[data-type]');
+        let columnaActual = null;
+        let ascendente = true;
+
+        headers.forEach(function (th) {
+            th.classList.add('th-sortable');
+            th.addEventListener('click', function () {
+                const tipo = th.dataset.type;
+                const indice = Array.from(th.parentElement.children).indexOf(th);
+
+                if (columnaActual === indice) {
+                    ascendente = !ascendente;
+                } else {
+                    columnaActual = indice;
+                    ascendente = true;
+                }
+
+                headers.forEach(function (h) {
+                    const icono = h.querySelector('.sort-icon');
+                    if (icono) icono.textContent = 'unfold_more';
+                    h.classList.remove('th-activo');
+                });
+
+                const iconoActivo = th.querySelector('.sort-icon');
+                if (iconoActivo) iconoActivo.textContent = ascendente ? 'arrow_upward' : 'arrow_downward';
+                th.classList.add('th-activo');
+
+                filas.sort(function (a, b) {
+                    const celdaA = a.children[indice];
+                    const celdaB = b.children[indice];
+
+                    const valorA = celdaA.dataset.sortValue !== undefined ? celdaA.dataset.sortValue : celdaA.textContent.trim();
+                    const valorB = celdaB.dataset.sortValue !== undefined ? celdaB.dataset.sortValue : celdaB.textContent.trim();
+
+                    let resultado;
+                    if (tipo === 'number') {
+                        resultado = parseFloat(valorA) - parseFloat(valorB);
+                    } else if (tipo === 'date') {
+                        resultado = new Date(valorA) - new Date(valorB);
+                    } else {
+                        resultado = valorA.localeCompare(valorB, 'es', { sensitivity: 'base' });
+                    }
+
+                    return ascendente ? resultado : -resultado;
+                });
+
+                filas.forEach(function (fila) { tbody.appendChild(fila); });
+
+                alOrdenar();
+            });
+        });
+    }
+
     const tabla = document.getElementById('tablaProductosFinales');
 
     if (tabla) {
@@ -215,6 +271,11 @@
             btnAnterior.disabled = paginaActual === 1;
             btnSiguiente.disabled = paginaActual === totalPaginas;
         }
+
+        habilitarOrdenamiento(tabla, todasLasFilas, function () {
+            paginaActual = 1;
+            renderTabla();
+        });
 
         buscador.addEventListener('keyup', function () {
             paginaActual = 1;

@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,43 +8,98 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ProyectoAgroEspinosa_2026.styles.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/layout/layout.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ProyectoAgroEspinosa_2026</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+
+    @{
+        var controladorActual = ViewContext.RouteData.Values["controller"]?.ToString();
+        bool EsActivo(string nombreControlador) =>
+            string.Equals(controladorActual, nombreControlador, StringComparison.OrdinalIgnoreCase);
+    }
+
+    <header class="topbar">
+        <button class="btn-menu-toggle" id="btnMenu" aria-label="Menú">
+            <i class="material-icons">menu</i>
+        </button>
+        <img src="~/Logo Proyecto Agronomia.png" alt="Logo Agronomía" onerror="this.style.display='none'" />
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="layout-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <h6>Gestión</h6>
+
+            @if (User.IsInRole("Administrador"))
+            {
+                <a asp-controller="T_AdmTT" asp-action="Listar" class="@(EsActivo("T_AdmTT") ? "active" : "")">
+                    <i class="material-icons">settings</i> Administración
+                </a>
+            }
+            <a asp-controller="L_Inventory" asp-action="Listar" class="@(EsActivo("L_Inventory") ? "active" : "")">
+                <i class="material-icons">inventory_2</i> Inventario
+            </a>
+            <a asp-controller="M_Paymentmethod" asp-action="Listar" class="@(EsActivo("M_Paymentmethod") ? "active" : "")">
+                <i class="material-icons">credit_card</i> Métodos de Pago
+            </a>
+            <a asp-controller="F_Paid" asp-action="Listar" class="@(EsActivo("F_Paid") ? "active" : "")">
+                <i class="material-icons">payments</i> Pagos
+            </a>
+            <a asp-controller="E_Final_Product" asp-action="Listar" class="@(EsActivo("E_Final_Product") ? "active" : "")">
+                <i class="material-icons">inventory</i> Productos Finales
+            </a>
+            <a asp-controller="E_Initial_Product" asp-action="Listar" class="@(EsActivo("E_Initial_Product") ? "active" : "")">
+                <i class="material-icons">inventory</i> Productos Iniciales
+            </a>
+            <a asp-controller="P_Supplier" asp-action="Listar" class="@(EsActivo("P_Supplier") ? "active" : "")">
+                <i class="material-icons">groups</i> Proveedores
+            </a>
+            <a asp-controller="R_Resource" asp-action="Listar" class="@(EsActivo("R_Resource") ? "active" : "")">
+                <i class="material-icons">layers</i> Recursos
+            </a>
+
+            @if (User.IsInRole("Administrador"))
+            {
+                <a asp-controller="A_Resource_Adm" asp-action="Listar" class="@(EsActivo("A_Resource_Adm") ? "active" : "")">
+                    <i class="material-icons">settings</i> Recursos Admin
+                </a>
+            }
+            <a asp-controller="G_Report" asp-action="Listar" class="@(EsActivo("G_Report") ? "active" : "")">
+                <i class="material-icons">bar_chart</i> Reportes
+            </a>
+
+            @if (User.IsInRole("Administrador"))
+            {
+                <a asp-controller="K_Worker" asp-action="Listar" class="@(EsActivo("K_Worker") ? "active" : "")">
+                    <i class="material-icons">groups</i> Trabajadores
+                </a>
+            }
+            <div class="logout-link">
+                <a asp-controller="Login" asp-action="Logout">
+                    <i class="material-icons">logout</i> Cerrar sesión
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2026 - ProyectoAgroEspinosa_2026 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2026 - ProyectoAgroEspinosa_2026
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/layout/layout.js" asp-append-version="true"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
