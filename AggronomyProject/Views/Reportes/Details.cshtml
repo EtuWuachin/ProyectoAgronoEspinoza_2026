@@ -1,0 +1,15 @@
+@model Reporte
+@{
+    ViewData["Title"] = Model.titulo;
+}
+<div class="page-header">
+    <div><h1>@Model.titulo</h1><p>@Model.tipo_reporte &middot; @Model.fecha_generacion.ToString("dd/MM/yyyy HH:mm") &middot; @Model.generado_por</p></div>
+    <div class="d-flex gap-2 no-print">
+        <a class="btn btn-outline-secondary" asp-action="Index">Volver</a>
+        <button type="button" class="btn btn-primary" data-print>Imprimir</button>
+    </div>
+</div>
+<article class="panel">
+    <div class="report-body">@Model.contenido</div>
+</article>
+@section Scripts { <script src="~/js/modules/reportes.js" asp-append-version="true"></script> }

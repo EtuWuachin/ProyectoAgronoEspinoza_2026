@@ -1,0 +1,16 @@
+@model Administracion
+@{
+    ViewData["Title"] = "Nueva operación";
+}
+<div class="page-header">
+    <div><h1>Nueva operación</h1><p>Vincule el trabajador, el inventario, el reporte y el pago</p></div>
+    <a class="btn btn-outline-secondary" asp-action="Index">Volver</a>
+</div>
+<form asp-action="Create" class="form-panel">
+    <partial name="_Form" />
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Guardar operación</button>
+        <a asp-action="Index" class="btn btn-link">Cancelar</a>
+    </div>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

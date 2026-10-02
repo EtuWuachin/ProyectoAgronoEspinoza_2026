@@ -1,0 +1,37 @@
+@model IEnumerable<Proveedor>
+@{
+    ViewData["Title"] = "Proveedores";
+}
+<div class="page-header">
+    <div><h1>Proveedores</h1><p>Directorio de proveedores y contactos</p></div>
+    <a class="btn btn-primary" asp-action="Create">Nuevo proveedor</a>
+</div>
+<form method="get" class="filter-bar">
+    <input type="search" name="q" value="@ViewData["q"]" class="form-control" placeholder="Buscar por nombre o RUC" aria-label="Buscar" />
+    <button type="submit" class="btn btn-outline-secondary">Buscar</button>
+</form>
+<div class="table-wrap">
+    <table class="data-table">
+        <thead><tr><th>Proveedor</th><th>RUC</th><th>Teléfono</th><th>Correo</th><th>Estado</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td><a asp-action="Details" asp-route-id="@p.id_proveedor"><strong>@p.nombre</strong></a><span class="cell-sub">@p.direccion</span></td>
+                <td>@p.ruc</td>
+                <td>@p.telefono</td>
+                <td>@p.email</td>
+                <td><partial name="_EstadoBadge" model="p.estado" /></td>
+                <td class="table-actions">
+                    <a asp-action="Edit" asp-route-id="@p.id_proveedor">Editar</a>
+                    <partial name="_EstadoButton" model='new EstadoToggle("Proveedores", p.id_proveedor, p.estado)' />
+                </td>
+            </tr>
+        }
+        @if (!Model.Any())
+        {
+            <tr class="empty-row"><td colspan="6">No hay proveedores registrados.</td></tr>
+        }
+        </tbody>
+    </table>
+</div>

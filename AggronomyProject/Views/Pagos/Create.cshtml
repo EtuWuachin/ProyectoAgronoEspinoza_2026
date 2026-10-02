@@ -1,0 +1,16 @@
+@model Pago
+@{
+    ViewData["Title"] = "Registrar pago";
+}
+<div class="page-header">
+    <div><h1>Registrar pago</h1><p>Datos del pago y su comprobante</p></div>
+    <a class="btn btn-outline-secondary" asp-action="Index">Volver</a>
+</div>
+<form asp-action="Create" class="form-panel">
+    <partial name="_Form" />
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Guardar pago</button>
+        <a asp-action="Index" class="btn btn-link">Cancelar</a>
+    </div>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

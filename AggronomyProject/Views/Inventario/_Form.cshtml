@@ -1,0 +1,49 @@
+@model Inventario
+<div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+<input type="hidden" asp-for="id_iventario" />
+<div class="form-grid">
+    <div class="mb-3">
+        <label asp-for="nombre" class="form-label">Nombre</label>
+        <input asp-for="nombre" class="form-control" />
+        <span asp-validation-for="nombre" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="unidad_medida" class="form-label">Unidad de medida</label>
+        <input asp-for="unidad_medida" class="form-control" placeholder="kg, sacos, litros" />
+        <span asp-validation-for="unidad_medida" class="text-danger small"></span>
+    </div>
+    <div class="mb-3 span-all">
+        <label asp-for="descripcion" class="form-label">Descripción</label>
+        <input asp-for="descripcion" class="form-control" />
+        <span asp-validation-for="descripcion" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="stock_actual" class="form-label">Stock actual</label>
+        <input asp-for="stock_actual" type="number" min="0" class="form-control" />
+        <span asp-validation-for="stock_actual" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="stock_minimo" class="form-label">Stock mínimo</label>
+        <input asp-for="stock_minimo" type="number" min="0" class="form-control" />
+        <div class="form-hint">Por debajo de este valor aparece la alerta.</div>
+        <span asp-validation-for="stock_minimo" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="id_producto_inicial" class="form-label">Insumo base</label>
+        <select asp-for="id_producto_inicial" asp-items="(SelectList)ViewBag.id_producto_inicial" class="form-select">
+            <option value="">Seleccione un insumo</option>
+        </select>
+        <span asp-validation-for="id_producto_inicial" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="id_producto_final" class="form-label">Producto final</label>
+        <select asp-for="id_producto_final" asp-items="(SelectList)ViewBag.id_producto_final" class="form-select">
+            <option value="">Seleccione un producto</option>
+        </select>
+        <span asp-validation-for="id_producto_final" class="text-danger small"></span>
+    </div>
+    <div class="form-check mb-3 span-all">
+        <input asp-for="estado" class="form-check-input" />
+        <label asp-for="estado" class="form-check-label">Artículo activo</label>
+    </div>
+</div>

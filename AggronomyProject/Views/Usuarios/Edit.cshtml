@@ -1,0 +1,16 @@
+@model Usuario
+@{
+    ViewData["Title"] = "Editar usuario";
+}
+<div class="page-header">
+    <div><h1>Editar usuario</h1><p>@Model.NombreUsuario</p></div>
+    <a class="btn btn-outline-secondary" asp-action="Index">Volver</a>
+</div>
+<form asp-action="Edit" asp-route-id="@Model.IdUsuario" class="form-panel">
+    <partial name="_Form" />
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        <a asp-action="Index" class="btn btn-link">Cancelar</a>
+    </div>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

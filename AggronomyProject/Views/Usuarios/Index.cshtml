@@ -1,0 +1,39 @@
+@model IEnumerable<Usuario>
+@{
+    ViewData["Title"] = "Usuarios";
+}
+<div class="page-header">
+    <div><h1>Usuarios</h1><p>Cuentas del sistema y su estado</p></div>
+    <div class="d-flex gap-2">
+        <a class="btn btn-outline-secondary" asp-action="Roles">Configurar roles</a>
+        <a class="btn btn-primary" asp-action="Create">Nuevo usuario</a>
+    </div>
+</div>
+<form method="get" class="filter-bar">
+    <input type="search" name="q" value="@ViewData["q"]" class="form-control" placeholder="Buscar por usuario o correo" aria-label="Buscar" />
+    <button type="submit" class="btn btn-outline-secondary">Buscar</button>
+</form>
+<div class="table-wrap">
+    <table class="data-table">
+        <thead><tr><th>Usuario</th><th>Correo</th><th>Rol</th><th>Estado</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var u in Model)
+        {
+            <tr>
+                <td><strong>@u.NombreUsuario</strong></td>
+                <td>@u.CorreoElectronico</td>
+                <td>@u.Rol?.NombreRol</td>
+                <td><partial name="_EstadoBadge" model="u.Estado" /></td>
+                <td class="table-actions">
+                    <a asp-action="Edit" asp-route-id="@u.IdUsuario">Editar</a>
+                    <partial name="_EstadoButton" model='new EstadoToggle("Usuarios", u.IdUsuario, u.Estado)' />
+                </td>
+            </tr>
+        }
+        @if (!Model.Any())
+        {
+            <tr class="empty-row"><td colspan="5">No se encontraron usuarios.</td></tr>
+        }
+        </tbody>
+    </table>
+</div>

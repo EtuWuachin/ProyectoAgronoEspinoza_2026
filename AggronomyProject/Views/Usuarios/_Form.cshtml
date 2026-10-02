@@ -1,0 +1,33 @@
+@model Usuario
+@{
+    var esEdicion = Model.IdUsuario > 0;
+}
+<div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+<input type="hidden" asp-for="IdUsuario" />
+<div class="form-grid">
+    <div class="mb-3">
+        <label asp-for="NombreUsuario" class="form-label">Nombre de usuario</label>
+        <input asp-for="NombreUsuario" class="form-control" autocomplete="off" />
+        <span asp-validation-for="NombreUsuario" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="CorreoElectronico" class="form-label">Correo electrónico</label>
+        <input asp-for="CorreoElectronico" type="email" class="form-control" autocomplete="off" />
+        <span asp-validation-for="CorreoElectronico" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Contrasena" class="form-label">Contraseña</label>
+        <input asp-for="Contrasena" type="password" class="form-control" autocomplete="new-password" />
+        <div class="form-hint">@(esEdicion ? "Déjela vacía para conservar la contraseña actual." : "Mínimo 6 caracteres.")</div>
+        <span asp-validation-for="Contrasena" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IdRol" class="form-label">Rol</label>
+        <select asp-for="IdRol" asp-items="(SelectList)ViewBag.IdRol" class="form-select"><option value="">Seleccione un rol</option></select>
+        <span asp-validation-for="IdRol" class="text-danger small"></span>
+    </div>
+    <div class="form-check mb-3 span-all">
+        <input asp-for="Estado" class="form-check-input" />
+        <label asp-for="Estado" class="form-check-label">Cuenta activa</label>
+    </div>
+</div>

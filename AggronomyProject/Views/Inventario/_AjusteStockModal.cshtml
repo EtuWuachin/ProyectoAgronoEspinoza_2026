@@ -1,0 +1,29 @@
+<div class="modal fade" id="ajusteStockModal" tabindex="-1" aria-labelledby="ajusteTitulo" aria-hidden="true">
+    <div class="modal-dialog">
+        <form class="modal-content" asp-action="AjusteStock" method="post">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="ajusteTitulo">Ajustar stock</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="id" />
+                <p class="mb-3"><strong id="ajusteNombre"></strong><br /><span class="text-muted">Stock actual: <span id="ajusteStock"></span></span></p>
+                <div class="mb-3">
+                    <label class="form-label" for="ajusteTipo">Movimiento</label>
+                    <select class="form-select" id="ajusteTipo" name="tipo">
+                        <option value="entrada">Entrada (suma al stock)</option>
+                        <option value="salida">Salida (resta del stock)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="form-label" for="ajusteCantidad">Cantidad</label>
+                    <input type="number" class="form-control" id="ajusteCantidad" name="cantidad" min="1" required />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar movimiento</button>
+            </div>
+        </form>
+    </div>
+</div>

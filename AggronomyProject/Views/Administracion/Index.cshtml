@@ -1,0 +1,33 @@
+@model IEnumerable<Administracion>
+@{
+    ViewData["Title"] = "Operaciones";
+}
+<div class="page-header">
+    <div><h1>Operaciones</h1><p>Trazabilidad administrativa del fundo</p></div>
+    <a class="btn btn-primary" asp-action="Create">Nueva operación</a>
+</div>
+<div class="table-wrap">
+    <table class="data-table">
+        <thead><tr><th>Operación</th><th>Fecha</th><th>Responsable</th><th>Trabajador</th><th>Inventario</th><th>Reporte</th><th>Método de pago</th><th>Estado</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var a in Model)
+        {
+            <tr>
+                <td><strong>@a.nombre</strong><span class="cell-sub">@a.descripcion</span></td>
+                <td>@a.fecha_registro.ToString("dd/MM/yyyy")</td>
+                <td>@a.responsable</td>
+                <td>@a.trabajador?.apellidos, @a.trabajador?.nombres</td>
+                <td>@a.inventario?.nombre</td>
+                <td>@a.reporte?.titulo</td>
+                <td>@a.metodopago?.nombre</td>
+                <td><partial name="_EstadoBadge" model="a.estado" /></td>
+                <td class="table-actions"><partial name="_EstadoButton" model='new EstadoToggle("Administracion", a.IdAdministracion, a.estado)' /></td>
+            </tr>
+        }
+        @if (!Model.Any())
+        {
+            <tr class="empty-row"><td colspan="9">No hay operaciones registradas.</td></tr>
+        }
+        </tbody>
+    </table>
+</div>

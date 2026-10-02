@@ -1,0 +1,37 @@
+@model IEnumerable<Recurso>
+@{
+    ViewData["Title"] = "Recursos";
+}
+<div class="page-header">
+    <div><h1>Recursos</h1><p>Recursos e insumos recibidos por proveedor</p></div>
+    <a class="btn btn-primary" asp-action="Create">Nuevo recurso</a>
+</div>
+<form method="get" class="filter-bar">
+    <select name="proveedorId" class="form-select" asp-items="(SelectList)ViewBag.Proveedores" aria-label="Proveedor">
+        <option value="">Todos los proveedores</option>
+    </select>
+    <button type="submit" class="btn btn-outline-secondary">Filtrar</button>
+</form>
+<div class="table-wrap">
+    <table class="data-table">
+        <thead><tr><th>Recurso</th><th>Proveedor</th><th>Ingreso</th><th class="num">Cantidad</th><th class="num">Costo</th><th>Estado</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td><a asp-action="Details" asp-route-id="@r.id_recurso"><strong>@r.tipo_recurso</strong></a></td>
+                <td>@r.proveedor?.nombre</td>
+                <td>@r.fecha_ingreso.ToString("dd/MM/yyyy")</td>
+                <td class="num">@r.cantidad_recibida @r.unidad_medida</td>
+                <td class="num">S/ @r.costo_recurso.ToString("N2")</td>
+                <td><partial name="_EstadoBadge" model="r.estado" /></td>
+                <td class="table-actions"><partial name="_EstadoButton" model='new EstadoToggle("Recursos", r.id_recurso, r.estado)' /></td>
+            </tr>
+        }
+        @if (!Model.Any())
+        {
+            <tr class="empty-row"><td colspan="7">No hay recursos registrados con ese filtro.</td></tr>
+        }
+        </tbody>
+    </table>
+</div>

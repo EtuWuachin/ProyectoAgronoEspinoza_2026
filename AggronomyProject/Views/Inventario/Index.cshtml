@@ -1,0 +1,83 @@
+@model InventarioFilterViewModel
+@{
+    ViewData["Title"] = "Inventario";
+}
+
+<div class="page-header">
+    <div>
+        <h1>Inventario</h1>
+        <p>Existencias del almacén y alertas de stock mínimo</p>
+    </div>
+    <a class="btn btn-primary" asp-action="Create">Nuevo artículo</a>
+</div>
+
+<form method="get" class="filter-bar">
+    <input type="search" id="buscarInstantaneo" name="Busqueda" value="@Model.Busqueda" class="form-control" placeholder="Buscar artículo" aria-label="Buscar artículo" />
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="chkBajo" name="SoloStockBajo" value="true" @(Model.SoloStockBajo ? "checked" : "") />
+        <input type="hidden" name="SoloStockBajo" value="false" />
+        <label class="form-check-label" for="chkBajo">Solo stock bajo</label>
+    </div>
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="chkActivos" name="SoloActivos" value="true" @(Model.SoloActivos ? "checked" : "") />
+        <input type="hidden" name="SoloActivos" value="false" />
+        <label class="form-check-label" for="chkActivos">Solo activos</label>
+    </div>
+    <button type="submit" class="btn btn-outline-secondary">Filtrar</button>
+</form>
+
+<div class="table-wrap">
+    <table class="data-table" id="tablaInventario">
+        <thead>
+            <tr>
+                <th>Artículo</th>
+                <th>Insumo base</th>
+                <th>Producto final</th>
+                <th>Stock</th>
+                <th class="num">Mínimo</th>
+                <th>Actualizado</th>
+                <th>Estado</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model.Items)
+            {
+                var bajo = i.stock_actual <= i.stock_minimo;
+                var vacio = i.stock_actual == 0;
+                var pct = i.stock_minimo <= 0 ? 100 : Math.Min(100, (int)(i.stock_actual * 100.0 / (i.stock_minimo * 2)));
+                <tr data-nombre="@((i.nombre + " " + i.descripcion).ToLower())">
+                    <td>
+                        <a asp-action="Details" asp-route-id="@i.id_iventario"><strong>@i.nombre</strong></a>
+                        <span class="cell-sub">@i.descripcion</span>
+                    </td>
+                    <td>@i.productoinicial?.nombre</td>
+                    <td>@i.productofinal?.nombre</td>
+                    <td class="stock-cell">
+                        <strong>@i.stock_actual</strong> @i.unidad_medida
+                        <div class="stock-bar @(vacio ? "is-empty" : bajo ? "is-low" : "")"><span style="width:@pct%"></span></div>
+                    </td>
+                    <td class="num">@i.stock_minimo</td>
+                    <td>@i.fecha_actualizacion.ToString("dd/MM/yyyy")</td>
+                    <td><partial name="_EstadoBadge" model="i.estado" /></td>
+                    <td class="table-actions">
+                        <button type="button" class="link-btn" data-bs-toggle="modal" data-bs-target="#ajusteStockModal"
+                                data-id="@i.id_iventario" data-nombre="@i.nombre" data-stock="@i.stock_actual" data-unidad="@i.unidad_medida">Ajustar stock</button>
+                        <a asp-action="Edit" asp-route-id="@i.id_iventario">Editar</a>
+                        <partial name="_EstadoButton" model='new EstadoToggle("Inventario", i.id_iventario, i.estado)' />
+                    </td>
+                </tr>
+            }
+            @if (!Model.Items.Any())
+            {
+                <tr class="empty-row"><td colspan="8">No hay artículos con esos filtros. Cambie la búsqueda o registre un artículo nuevo.</td></tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<partial name="_AjusteStockModal" />
+
+@section Scripts {
+    <script src="~/js/modules/inventario.js" asp-append-version="true"></script>
+}

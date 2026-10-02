@@ -1,0 +1,16 @@
+@using Microsoft.EntityFrameworkCore
+@inject AggronomyProject.Data.ApplicationDbContext Db
+@{
+    var bajos = await Db.Inventarios.CountAsync(i => i.estado && i.stock_actual <= i.stock_minimo);
+}
+<header class="topbar">
+    <button type="button" class="btn btn-outline-secondary btn-sm sidebar-toggle" id="sidebarToggle" aria-label="Abrir menú">Menú</button>
+    <div class="topbar-spacer"></div>
+    @if (bajos > 0)
+    {
+        <a class="stock-alert-link" asp-controller="Inventario" asp-action="Index" asp-route-SoloStockBajo="true">
+            @bajos @(bajos == 1 ? "artículo" : "artículos") con stock bajo
+        </a>
+    }
+    <partial name="_LoginPartial" />
+</header>

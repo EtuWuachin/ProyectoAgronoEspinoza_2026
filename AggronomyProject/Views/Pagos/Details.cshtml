@@ -1,0 +1,33 @@
+@model Pago
+@{
+    ViewData["Title"] = Model.comprobante;
+}
+<div class="page-header">
+    <div><h1>@Model.concepto</h1><p>Comprobante @Model.comprobante</p></div>
+    <a class="btn btn-outline-secondary" asp-action="Index">Volver</a>
+</div>
+<div class="panel mb-4">
+    <dl class="detail-list">
+        <dt>Monto</dt><dd><strong>S/ @Model.monto.ToString("N2")</strong></dd>
+        <dt>Fecha de pago</dt><dd>@Model.fecha_pago.ToString("dd/MM/yyyy")</dd>
+        <dt>Comprobante</dt><dd>@Model.comprobante</dd>
+        <dt>Estado</dt><dd><partial name="_EstadoBadge" model="Model.estado" /></dd>
+    </dl>
+</div>
+<div class="panel">
+    <div class="panel-title"><h2>Métodos de pago</h2><a asp-controller="MetodosPago" asp-action="Create">Agregar método</a></div>
+    @if (Model.metodopago == null || !Model.metodopago.Any())
+    {
+        <p class="empty-note">Este pago no tiene un método asociado.</p>
+    }
+    else
+    {
+        @foreach (var m in Model.metodopago)
+        {
+            <div class="restock-row">
+                <div><strong>@m.nombre</strong><div class="restock-meta">@m.descripcion</div></div>
+                <partial name="_EstadoBadge" model="m.estado" />
+            </div>
+        }
+    }
+</div>

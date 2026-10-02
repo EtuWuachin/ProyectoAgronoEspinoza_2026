@@ -1,0 +1,16 @@
+@model Trabajador
+@{
+    ViewData["Title"] = "Nuevo trabajador";
+}
+<div class="page-header">
+    <div><h1>Nuevo trabajador</h1><p>Registro de personal con DNI, cargo y contrato</p></div>
+    <a class="btn btn-outline-secondary" asp-action="Index">Volver</a>
+</div>
+<form asp-action="Create" class="form-panel">
+    <partial name="_Form" />
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Guardar trabajador</button>
+        <a asp-action="Index" class="btn btn-link">Cancelar</a>
+    </div>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

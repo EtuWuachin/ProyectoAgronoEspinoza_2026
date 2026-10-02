@@ -1,0 +1,16 @@
+@model Inventario
+@{
+    ViewData["Title"] = "Nuevo artículo";
+}
+<div class="page-header">
+    <div><h1>Nuevo artículo</h1><p>Ingreso manual de un producto al almacén</p></div>
+    <a class="btn btn-outline-secondary" asp-action="Index">Volver</a>
+</div>
+<form asp-action="Create" class="form-panel">
+    <partial name="_Form" />
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Guardar artículo</button>
+        <a asp-action="Index" class="btn btn-link">Cancelar</a>
+    </div>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

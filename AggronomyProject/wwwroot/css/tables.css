@@ -1,0 +1,23 @@
+.table-wrap { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow-x: auto; }
+.data-table { width: 100%; border-collapse: collapse; margin: 0; }
+.data-table th { text-align: left; font-weight: 600; font-size: .85rem; color: var(--muted); padding: .7rem 1rem; border-bottom: 1px solid var(--line); background: #fafbf8; white-space: nowrap; }
+.data-table td { padding: .75rem 1rem; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.data-table tbody tr:last-child td { border-bottom: 0; }
+.data-table tbody tr:hover { background: #f8faf5; }
+.data-table .num { text-align: right; }
+.data-table .cell-sub { display: block; color: var(--muted); font-size: .85rem; }
+.data-table .empty-row td { text-align: center; color: var(--muted); padding: 2rem 1rem; }
+.table-actions { white-space: nowrap; text-align: right; }
+.table-actions > * { margin-left: .85rem; }
+.table-actions a { text-decoration: none; }
+.table-actions a:hover { text-decoration: underline; }
+
+.badge-estado { display: inline-block; padding: .15rem .6rem; border-radius: 999px; font-size: .8rem; font-weight: 600; }
+.badge-estado.on { background: #e1f0e4; color: #1f5a2f; }
+.badge-estado.off { background: #ebeee8; color: #5a655c; }
+
+.stock-cell { min-width: 140px; }
+.stock-bar { height: 6px; background: #e6eae1; border-radius: 3px; overflow: hidden; margin-top: .3rem; }
+.stock-bar > span { display: block; height: 100%; background: var(--leaf); }
+.stock-bar.is-low > span { background: var(--wheat); }
+.stock-bar.is-empty > span { background: var(--danger); }
