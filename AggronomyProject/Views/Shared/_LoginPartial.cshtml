@@ -1,0 +1,14 @@
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <div class="user-chip">
+        <span>@User.Identity.Name</span>
+        <small>@User.FindFirst(ClaimTypes.Role)?.Value</small>
+    </div>
+    <form asp-controller="Account" asp-action="Logout" method="post" class="m-0">
+        <button type="submit" class="btn btn-outline-secondary btn-sm">Cerrar sesión</button>
+    </form>
+}
+else
+{
+    <a class="btn btn-primary btn-sm" asp-controller="Account" asp-action="Login">Iniciar sesión</a>
+}

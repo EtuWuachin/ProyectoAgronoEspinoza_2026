@@ -1,0 +1,37 @@
+@{
+    string ctrl = (ViewContext.RouteData.Values["controller"] as string) ?? "";
+    string Act(string c) => ctrl.Equals(c, StringComparison.OrdinalIgnoreCase) ? "active" : "";
+    var esAdmin = User.IsInRole("Administrador");
+}
+<aside class="sidebar" id="sidebar" aria-label="Menú principal">
+    <a class="sidebar-brand" asp-controller="Home" asp-action="Index">
+        <span class="brand-mark">Agronomía</span>
+        <span class="brand-sub">Espinoza</span>
+    </a>
+    <nav>
+        <a class="side-link @Act("Home")" asp-controller="Home" asp-action="Index">Panel general</a>
+
+        <p class="side-group">Almacén</p>
+        <a class="side-link @Act("Inventario")" asp-controller="Inventario" asp-action="Index">Inventario</a>
+        <a class="side-link @Act("ProductosIniciales")" asp-controller="ProductosIniciales" asp-action="Index">Insumos</a>
+        <a class="side-link @Act("ProductosFinales")" asp-controller="ProductosFinales" asp-action="Index">Cosechas</a>
+
+        <p class="side-group">Compras</p>
+        <a class="side-link @Act("Proveedores")" asp-controller="Proveedores" asp-action="Index">Proveedores</a>
+        <a class="side-link @Act("Recursos")" asp-controller="Recursos" asp-action="Index">Recursos</a>
+        <a class="side-link @Act("RecursosAdministrador")" asp-controller="RecursosAdministrador" asp-action="Index">Actas de recepción</a>
+
+        <p class="side-group">Personal y finanzas</p>
+        <a class="side-link @Act("Trabajadores")" asp-controller="Trabajadores" asp-action="Index">Trabajadores</a>
+        <a class="side-link @Act("Pagos")" asp-controller="Pagos" asp-action="Index">Pagos</a>
+        <a class="side-link @Act("MetodosPago")" asp-controller="MetodosPago" asp-action="Index">Métodos de pago</a>
+
+        <p class="side-group">Gestión</p>
+        <a class="side-link @Act("Reportes")" asp-controller="Reportes" asp-action="Index">Reportes</a>
+        @if (esAdmin)
+        {
+            <a class="side-link @Act("Administracion")" asp-controller="Administracion" asp-action="Index">Operaciones</a>
+            <a class="side-link @Act("Usuarios")" asp-controller="Usuarios" asp-action="Index">Usuarios y roles</a>
+        }
+    </nav>
+</aside>

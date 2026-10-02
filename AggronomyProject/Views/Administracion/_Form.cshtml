@@ -1,0 +1,53 @@
+@model Administracion
+<div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+<div class="form-grid">
+    <div class="mb-3">
+        <label asp-for="nombre" class="form-label">Nombre de la operación</label>
+        <input asp-for="nombre" class="form-control" />
+        <span asp-validation-for="nombre" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="fecha_registro" class="form-label">Fecha de registro</label>
+        <input asp-for="fecha_registro" type="date" class="form-control" />
+        <span asp-validation-for="fecha_registro" class="text-danger small"></span>
+    </div>
+    <div class="mb-3 span-all">
+        <label asp-for="descripcion" class="form-label">Descripción</label>
+        <input asp-for="descripcion" class="form-control" />
+        <span asp-validation-for="descripcion" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="responsable" class="form-label">Responsable</label>
+        <input asp-for="responsable" class="form-control" />
+        <span asp-validation-for="responsable" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="id_trabajador" class="form-label">Trabajador</label>
+        <select asp-for="id_trabajador" asp-items="(SelectList)ViewBag.id_trabajador" class="form-select"><option value="">Seleccione</option></select>
+        <span asp-validation-for="id_trabajador" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="id_inventario" class="form-label">Artículo de inventario</label>
+        <select asp-for="id_inventario" asp-items="(SelectList)ViewBag.id_inventario" class="form-select"><option value="">Seleccione</option></select>
+        <span asp-validation-for="id_inventario" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="id_reporte" class="form-label">Reporte</label>
+        <select asp-for="id_reporte" asp-items="(SelectList)ViewBag.id_reporte" class="form-select"><option value="">Seleccione</option></select>
+        <span asp-validation-for="id_reporte" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="id_metodo_pago" class="form-label">Método de pago</label>
+        <select asp-for="id_metodo_pago" asp-items="(SelectList)ViewBag.id_metodo_pago" class="form-select"><option value="">Seleccione</option></select>
+        <span asp-validation-for="id_metodo_pago" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="id_recursos_administrador" class="form-label">Acta de recepción</label>
+        <select asp-for="id_recursos_administrador" asp-items="(SelectList)ViewBag.id_recursos_administrador" class="form-select"><option value="">Seleccione</option></select>
+        <span asp-validation-for="id_recursos_administrador" class="text-danger small"></span>
+    </div>
+    <div class="form-check mb-3 span-all">
+        <input asp-for="estado" class="form-check-input" />
+        <label asp-for="estado" class="form-check-label">Operación vigente</label>
+    </div>
+</div>

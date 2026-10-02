@@ -1,0 +1,19 @@
+@model ProductoInicial
+@{
+    ViewData["Title"] = "Nuevo insumo";
+}
+<div class="page-header">
+    <div><h1>Nuevo insumo</h1><p>Registro de insumo y lote de compra</p></div>
+    <a class="btn btn-outline-secondary" asp-action="Index">Volver</a>
+</div>
+<form asp-action="Create" class="form-panel">
+    <partial name="_Form" />
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Guardar insumo</button>
+        <a asp-action="Index" class="btn btn-link">Cancelar</a>
+    </div>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/modules/productos.js" asp-append-version="true"></script>
+}

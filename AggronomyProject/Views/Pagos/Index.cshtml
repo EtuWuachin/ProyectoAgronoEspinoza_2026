@@ -1,0 +1,39 @@
+@model IEnumerable<Pago>
+@{
+    ViewData["Title"] = "Pagos";
+}
+<div class="page-header">
+    <div><h1>Pagos</h1><p>Historial de transacciones y comprobantes</p></div>
+    <a class="btn btn-primary" asp-action="Create">Registrar pago</a>
+</div>
+<form method="get" class="filter-bar">
+    <label class="form-label mb-0" for="desde">Desde</label>
+    <input type="date" id="desde" name="desde" value="@ViewData["desde"]" class="form-control" />
+    <label class="form-label mb-0" for="hasta">Hasta</label>
+    <input type="date" id="hasta" name="hasta" value="@ViewData["hasta"]" class="form-control" />
+    <button type="submit" class="btn btn-outline-secondary">Filtrar</button>
+    <span class="ms-auto">Total de pagos activos: <strong>S/ @(((decimal)(ViewData["total"] ?? 0m)).ToString("N2"))</strong></span>
+</form>
+<div class="table-wrap">
+    <table class="data-table">
+        <thead><tr><th>Concepto</th><th>Comprobante</th><th>Fecha</th><th>Método</th><th class="num">Monto</th><th>Estado</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td><a asp-action="Details" asp-route-id="@p.IdPago"><strong>@p.concepto</strong></a></td>
+                <td>@p.comprobante</td>
+                <td>@p.fecha_pago.ToString("dd/MM/yyyy")</td>
+                <td>@(p.metodopago != null && p.metodopago.Any() ? string.Join(", ", p.metodopago.Select(m => m.nombre)) : "Sin método")</td>
+                <td class="num">S/ @p.monto.ToString("N2")</td>
+                <td><partial name="_EstadoBadge" model="p.estado" /></td>
+                <td class="table-actions"><partial name="_EstadoButton" model='new EstadoToggle("Pagos", p.IdPago, p.estado)' /></td>
+            </tr>
+        }
+        @if (!Model.Any())
+        {
+            <tr class="empty-row"><td colspan="7">No hay pagos en este periodo.</td></tr>
+        }
+        </tbody>
+    </table>
+</div>

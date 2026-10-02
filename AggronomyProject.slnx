@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="AggronomyProject.Tests2/AggronomyProject.Tests2.csproj" Id="895ea70a-1543-4f83-a781-e53eefa24444" />
+  <Project Path="AggronomyProject/AggronomyProject.csproj" />
+</Solution>

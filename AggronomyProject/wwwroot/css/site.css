@@ -1,0 +1,117 @@
+:root {
+  --ink: #1d2a22;
+  --muted: #667267;
+  --paper: #f3f5f0;
+  --panel: #ffffff;
+  --line: #dde3d8;
+  --field: #1f3b2c;
+  --field-soft: #2c5340;
+  --leaf: #2f6b3f;
+  --leaf-dark: #255633;
+  --wheat: #b9801a;
+  --wheat-soft: #fbf1d9;
+  --danger: #a3301f;
+  --radius: 6px;
+}
+
+html { font-size: 15px; }
+body {
+  font-family: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  font-variant-numeric: tabular-nums;
+}
+a { color: var(--leaf); }
+a:hover { color: var(--leaf-dark); }
+:focus-visible { outline: 2px solid var(--wheat); outline-offset: 2px; }
+
+/* ---------- Estructura ---------- */
+.app { display: grid; grid-template-columns: 248px minmax(0, 1fr); min-height: 100vh; }
+.app--bare { grid-template-columns: minmax(0, 1fr); }
+.app-main { display: flex; flex-direction: column; min-width: 0; }
+.app-content { padding: 1.75rem 2rem 3rem; width: 100%; max-width: 1280px; }
+
+/* ---------- Sidebar ---------- */
+.sidebar { background: var(--field); color: #dfe9e1; padding: 1.5rem 1rem; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+.sidebar-brand { display: block; text-decoration: none; color: #fff; padding: 0 .5rem 1.5rem; }
+.brand-mark { display: block; font-size: 1.35rem; font-weight: 700; letter-spacing: -.01em; }
+.brand-sub { display: block; font-size: .85rem; color: #a9c2b0; }
+.side-group { margin: 1.25rem .5rem .35rem; font-size: .8rem; color: #8fae98; }
+.side-link { display: block; padding: .5rem .75rem; border-radius: var(--radius); color: #dfe9e1; text-decoration: none; font-size: .95rem; }
+.side-link:hover { background: var(--field-soft); color: #fff; }
+.side-link.active { background: #fff; color: var(--field); font-weight: 600; }
+
+/* ---------- Barra superior ---------- */
+.topbar { display: flex; align-items: center; gap: 1rem; padding: .75rem 2rem; background: var(--panel); border-bottom: 1px solid var(--line); }
+.topbar-spacer { flex: 1; }
+.sidebar-toggle { display: none; }
+.stock-alert-link { text-decoration: none; font-size: .9rem; padding: .3rem .7rem; border-radius: 999px; background: var(--wheat-soft); color: #7a5410; }
+.user-chip { display: flex; flex-direction: column; line-height: 1.15; text-align: right; }
+.user-chip small { color: var(--muted); }
+
+/* ---------- Encabezado de página ---------- */
+.page-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.page-header h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -.01em; margin: 0; }
+.page-header p { margin: .15rem 0 0; color: var(--muted); }
+
+/* ---------- Botones ---------- */
+.btn-primary { background: var(--leaf); border-color: var(--leaf); }
+.btn-primary:hover, .btn-primary:focus { background: var(--leaf-dark); border-color: var(--leaf-dark); }
+.btn-outline-secondary { border-color: var(--line); color: var(--ink); background: var(--panel); }
+.btn-outline-secondary:hover { background: var(--paper); color: var(--ink); border-color: #c9d1c4; }
+.link-btn { background: none; border: 0; padding: 0; color: var(--leaf); cursor: pointer; font: inherit; }
+.link-btn:hover { text-decoration: underline; }
+.link-btn.is-danger { color: var(--danger); }
+
+/* ---------- Formularios ---------- */
+.form-panel, .panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; }
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0 1.25rem; }
+.form-grid .span-all { grid-column: 1 / -1; }
+.form-label { font-weight: 600; font-size: .9rem; margin-bottom: .25rem; }
+.form-control, .form-select { border-color: #cbd3c6; border-radius: var(--radius); }
+.form-control:focus, .form-select:focus { border-color: var(--leaf); box-shadow: 0 0 0 .2rem rgba(47,107,63,.18); }
+.form-hint { font-size: .85rem; color: var(--muted); }
+.form-actions { display: flex; align-items: center; gap: .75rem; margin-top: 1rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.filter-bar { display: flex; gap: .75rem; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; }
+.filter-bar .form-control, .filter-bar .form-select { max-width: 280px; }
+
+/* ---------- Detalle ---------- */
+.detail-list { display: grid; grid-template-columns: 180px 1fr; gap: .6rem 1.25rem; margin: 0; }
+.detail-list dt { color: var(--muted); font-weight: 500; }
+.detail-list dd { margin: 0; }
+.report-body { white-space: pre-wrap; line-height: 1.65; max-width: 75ch; }
+
+/* ---------- Toasts ---------- */
+.toast-stack { position: fixed; top: 1rem; right: 1rem; z-index: 1090; }
+
+/* ---------- Login ---------- */
+.login-page { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+.login-brand { background: var(--field); color: #fff; padding: 4rem; display: flex; flex-direction: column; justify-content: flex-end; }
+.login-brand h1 { font-size: 2.6rem; font-weight: 700; letter-spacing: -.02em; max-width: 12ch; }
+.login-brand p { color: #a9c2b0; max-width: 34ch; }
+.login-form { display: flex; align-items: center; justify-content: center; padding: 2rem; }
+.login-form form { width: 100%; max-width: 360px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 991px) {
+  .app { grid-template-columns: minmax(0, 1fr); }
+  .sidebar { position: fixed; z-index: 1050; left: 0; width: 260px; transform: translateX(-100%); transition: transform .2s ease; }
+  body.sidebar-open .sidebar { transform: none; }
+  .sidebar-toggle { display: inline-block; }
+  .app-content { padding: 1.25rem 1rem 2.5rem; }
+  .topbar { padding: .6rem 1rem; }
+  .login-page { grid-template-columns: 1fr; }
+  .login-brand { padding: 2rem; min-height: 220px; }
+  .detail-list { grid-template-columns: 1fr; gap: .1rem; }
+  .detail-list dd { margin-bottom: .6rem; }
+}
+@media (prefers-reduced-motion: reduce) { .sidebar { transition: none; } }
+
+/* ---------- Impresión (reportes) ---------- */
+@media print {
+  .sidebar, .topbar, .page-header .btn, .no-print, .toast-stack { display: none !important; }
+  .app { display: block; }
+  body { background: #fff; }
+  .app-content { padding: 0; max-width: none; }
+  .panel { border: 0; padding: 0; }
+}

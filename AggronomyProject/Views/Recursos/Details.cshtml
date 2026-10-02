@@ -1,0 +1,34 @@
+@model Recurso
+@{
+    ViewData["Title"] = Model.tipo_recurso;
+}
+<div class="page-header">
+    <div><h1>@Model.tipo_recurso</h1><p>Recurso de @Model.proveedor?.nombre</p></div>
+    <a class="btn btn-outline-secondary" asp-action="Index">Volver</a>
+</div>
+<div class="panel mb-4">
+    <dl class="detail-list">
+        <dt>Proveedor</dt><dd><a asp-controller="Proveedores" asp-action="Details" asp-route-id="@Model.id_proveedor">@Model.proveedor?.nombre</a></dd>
+        <dt>Fecha de ingreso</dt><dd>@Model.fecha_ingreso.ToString("dd/MM/yyyy")</dd>
+        <dt>Cantidad recibida</dt><dd>@Model.cantidad_recibida @Model.unidad_medida</dd>
+        <dt>Costo</dt><dd>S/ @Model.costo_recurso.ToString("N2")</dd>
+        <dt>Estado</dt><dd><partial name="_EstadoBadge" model="Model.estado" /></dd>
+    </dl>
+</div>
+<div class="panel">
+    <div class="panel-title"><h2>Actas de recepción</h2><a asp-controller="RecursosAdministrador" asp-action="Create">Registrar acta</a></div>
+    @if (Model.recursosadministrador == null || !Model.recursosadministrador.Any())
+    {
+        <p class="empty-note">Este recurso todavía no tiene actas de recepción.</p>
+    }
+    else
+    {
+        @foreach (var a in Model.recursosadministrador.OrderByDescending(x => x.fecha_recepcion))
+        {
+            <div class="restock-row">
+                <div><strong>Acta #@a.id_recursos_administrador</strong><div class="restock-meta">@a.observaciones</div></div>
+                <span>@a.cantidad_recibida &middot; @a.fecha_recepcion.ToString("dd/MM/yyyy")</span>
+            </div>
+        }
+    }
+</div>

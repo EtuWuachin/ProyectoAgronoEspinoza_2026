@@ -1,0 +1,16 @@
+@model Usuario
+@{
+    ViewData["Title"] = "Nuevo usuario";
+}
+<div class="page-header">
+    <div><h1>Nuevo usuario</h1><p>Cree una cuenta y asígnele un rol</p></div>
+    <a class="btn btn-outline-secondary" asp-action="Index">Volver</a>
+</div>
+<form asp-action="Create" class="form-panel">
+    <partial name="_Form" />
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Crear usuario</button>
+        <a asp-action="Index" class="btn btn-link">Cancelar</a>
+    </div>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

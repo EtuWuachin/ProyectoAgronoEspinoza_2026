@@ -1,0 +1,32 @@
+@model IEnumerable<RecursosAdministrador>
+@{
+    ViewData["Title"] = "Actas de recepción";
+}
+<div class="page-header">
+    <div><h1>Actas de recepción</h1><p>Auditoría administrativa de los recursos recibidos</p></div>
+    <a class="btn btn-primary" asp-action="Create">Nueva acta</a>
+</div>
+<div class="table-wrap">
+    <table class="data-table">
+        <thead><tr><th>Acta</th><th>Recurso</th><th>Proveedor</th><th>Recepción</th><th class="num">Cantidad</th><th>Observaciones</th><th>Estado</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var a in Model)
+        {
+            <tr>
+                <td><strong>#@a.id_recursos_administrador</strong></td>
+                <td><a asp-controller="Recursos" asp-action="Details" asp-route-id="@a.id_recurso">@a.recurso?.tipo_recurso</a></td>
+                <td>@a.recurso?.proveedor?.nombre</td>
+                <td>@a.fecha_recepcion.ToString("dd/MM/yyyy")</td>
+                <td class="num">@a.cantidad_recibida</td>
+                <td>@a.observaciones</td>
+                <td><partial name="_EstadoBadge" model="a.estado" /></td>
+                <td class="table-actions"><partial name="_EstadoButton" model='new EstadoToggle("RecursosAdministrador", a.id_recursos_administrador, a.estado)' /></td>
+            </tr>
+        }
+        @if (!Model.Any())
+        {
+            <tr class="empty-row"><td colspan="8">No hay actas registradas. Cree una cuando reciba un recurso.</td></tr>
+        }
+        </tbody>
+    </table>
+</div>

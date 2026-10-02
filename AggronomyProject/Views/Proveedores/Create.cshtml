@@ -1,0 +1,16 @@
+@model Proveedor
+@{
+    ViewData["Title"] = "Nuevo proveedor";
+}
+<div class="page-header">
+    <div><h1>Nuevo proveedor</h1><p>Datos de contacto y RUC</p></div>
+    <a class="btn btn-outline-secondary" asp-action="Index">Volver</a>
+</div>
+<form asp-action="Create" class="form-panel">
+    <partial name="_Form" />
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Guardar proveedor</button>
+        <a asp-action="Index" class="btn btn-link">Cancelar</a>
+    </div>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

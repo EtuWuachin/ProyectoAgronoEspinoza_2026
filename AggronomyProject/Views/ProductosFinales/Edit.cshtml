@@ -1,0 +1,16 @@
+@model ProductoFinal
+@{
+    ViewData["Title"] = "Editar cosecha";
+}
+<div class="page-header">
+    <div><h1>Editar cosecha</h1><p>@Model.nombre</p></div>
+    <a class="btn btn-outline-secondary" asp-action="Index">Volver</a>
+</div>
+<form asp-action="Edit" asp-route-id="@Model.id_producto_final" class="form-panel">
+    <partial name="_Form" />
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        <a asp-action="Index" class="btn btn-link">Cancelar</a>
+    </div>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

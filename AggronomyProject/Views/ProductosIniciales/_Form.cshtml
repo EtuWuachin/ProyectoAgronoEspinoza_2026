@@ -1,0 +1,45 @@
+@model ProductoInicial
+<div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+<input type="hidden" asp-for="id_producto_inicial" />
+<div class="form-grid">
+    <div class="mb-3">
+        <label asp-for="nombre" class="form-label">Nombre</label>
+        <input asp-for="nombre" class="form-control" />
+        <span asp-validation-for="nombre" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="proveedor_origen" class="form-label">Proveedor de origen</label>
+        <input asp-for="proveedor_origen" class="form-control" />
+        <span asp-validation-for="proveedor_origen" class="text-danger small"></span>
+    </div>
+    <div class="mb-3 span-all">
+        <label asp-for="descripcion" class="form-label">Descripción</label>
+        <input asp-for="descripcion" class="form-control" />
+        <span asp-validation-for="descripcion" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="cantidad_inicial" class="form-label">Cantidad inicial</label>
+        <input asp-for="cantidad_inicial" type="number" min="0" class="form-control" />
+        <span asp-validation-for="cantidad_inicial" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="unidad_medida" class="form-label">Unidad de medida</label>
+        <input asp-for="unidad_medida" class="form-control" placeholder="kg, sacos, litros" />
+        <span asp-validation-for="unidad_medida" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="costo_unitario" class="form-label">Costo unitario (S/)</label>
+        <input asp-for="costo_unitario" type="number" step="0.01" min="0" class="form-control" />
+        <div class="form-hint">Costo total del lote: <strong id="costoTotal">S/ 0.00</strong></div>
+        <span asp-validation-for="costo_unitario" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="fecha_ingreso" class="form-label">Fecha de ingreso</label>
+        <input asp-for="fecha_ingreso" type="date" class="form-control" />
+        <span asp-validation-for="fecha_ingreso" class="text-danger small"></span>
+    </div>
+    <div class="form-check mb-3 span-all">
+        <input asp-for="estado" class="form-check-input" />
+        <label asp-for="estado" class="form-check-label">Insumo activo</label>
+    </div>
+</div>

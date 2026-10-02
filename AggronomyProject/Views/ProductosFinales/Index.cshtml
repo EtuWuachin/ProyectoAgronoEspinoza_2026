@@ -1,0 +1,36 @@
+@model IEnumerable<ProductoFinal>
+@{
+    ViewData["Title"] = "Cosechas";
+}
+<div class="page-header">
+    <div><h1>Cosechas</h1><p>Productos finales listos para la venta</p></div>
+    <a class="btn btn-primary" asp-action="Create">Nueva cosecha</a>
+</div>
+<form method="get" class="filter-bar">
+    <input type="search" name="q" value="@ViewData["q"]" class="form-control" placeholder="Buscar por nombre o descripción" aria-label="Buscar" />
+    <button type="submit" class="btn btn-outline-secondary">Buscar</button>
+</form>
+<div class="table-wrap">
+    <table class="data-table">
+        <thead><tr><th>Producto</th><th class="num">Cantidad producida</th><th class="num">Precio de venta</th><th>Estado</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td><a asp-action="Details" asp-route-id="@p.id_producto_final"><strong>@p.nombre</strong></a><span class="cell-sub">@p.descripcion</span></td>
+                <td class="num">@p.cantidad_producida @p.unidad_medida</td>
+                <td class="num">S/ @p.precio_venta.ToString("N2") / @p.unidad_medida</td>
+                <td><partial name="_EstadoBadge" model="p.estado" /></td>
+                <td class="table-actions">
+                    <a asp-action="Edit" asp-route-id="@p.id_producto_final">Editar</a>
+                    <partial name="_EstadoButton" model='new EstadoToggle("ProductosFinales", p.id_producto_final, p.estado)' />
+                </td>
+            </tr>
+        }
+        @if (!Model.Any())
+        {
+            <tr class="empty-row"><td colspan="5">Todavía no hay cosechas registradas. Use “Nueva cosecha” para agregar la primera.</td></tr>
+        }
+        </tbody>
+    </table>
+</div>

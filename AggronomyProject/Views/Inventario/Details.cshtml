@@ -1,0 +1,50 @@
+@model Inventario
+@{
+    ViewData["Title"] = Model.nombre;
+    var bajo = Model.stock_actual <= Model.stock_minimo;
+}
+<div class="page-header">
+    <div><h1>@Model.nombre</h1><p>Ficha técnica y trazabilidad del artículo</p></div>
+    <div class="d-flex gap-2">
+        <a class="btn btn-outline-secondary" asp-action="Index">Volver</a>
+        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.id_iventario">Editar</a>
+    </div>
+</div>
+
+<div class="panel mb-4">
+    <dl class="detail-list">
+        <dt>Descripción</dt><dd>@Model.descripcion</dd>
+        <dt>Stock actual</dt>
+        <dd><strong>@Model.stock_actual @Model.unidad_medida</strong>
+            @if (bajo) { <span class="restock-qty ms-2">Bajo el mínimo</span> }</dd>
+        <dt>Stock mínimo</dt><dd>@Model.stock_minimo @Model.unidad_medida</dd>
+        <dt>Insumo base</dt>
+        <dd><a asp-controller="ProductosIniciales" asp-action="Details" asp-route-id="@Model.id_producto_inicial">@Model.productoinicial?.nombre</a></dd>
+        <dt>Producto final</dt>
+        <dd><a asp-controller="ProductosFinales" asp-action="Details" asp-route-id="@Model.id_producto_final">@Model.productofinal?.nombre</a></dd>
+        <dt>Última actualización</dt><dd>@Model.fecha_actualizacion.ToString("dd/MM/yyyy HH:mm")</dd>
+        <dt>Estado</dt><dd><partial name="_EstadoBadge" model="Model.estado" /></dd>
+    </dl>
+</div>
+
+<div class="panel">
+    <div class="panel-title"><h2>Operaciones administrativas vinculadas</h2></div>
+    @if (Model.administracion == null || !Model.administracion.Any())
+    {
+        <p class="empty-note">Este artículo todavía no aparece en ninguna operación.</p>
+    }
+    else
+    {
+        <div class="table-wrap">
+            <table class="data-table">
+                <thead><tr><th>Operación</th><th>Fecha</th><th>Responsable</th></tr></thead>
+                <tbody>
+                @foreach (var a in Model.administracion.OrderByDescending(x => x.fecha_registro))
+                {
+                    <tr><td>@a.nombre</td><td>@a.fecha_registro.ToString("dd/MM/yyyy")</td><td>@a.responsable</td></tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

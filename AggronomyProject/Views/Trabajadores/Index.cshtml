@@ -1,0 +1,44 @@
+@model IEnumerable<Trabajador>
+@{
+    ViewData["Title"] = "Trabajadores";
+    var soloActivos = (bool)(ViewData["soloActivos"] ?? true);
+}
+<div class="page-header">
+    <div><h1>Trabajadores</h1><p>Personal de campo, cuadrillas y cargos</p></div>
+    <a class="btn btn-primary" asp-action="Create">Nuevo trabajador</a>
+</div>
+<form method="get" class="filter-bar">
+    <input type="search" name="q" value="@ViewData["q"]" class="form-control" placeholder="Buscar por nombre, DNI o cargo" aria-label="Buscar" />
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="chkActivos" name="soloActivos" value="true" @(soloActivos ? "checked" : "") />
+        <input type="hidden" name="soloActivos" value="false" />
+        <label class="form-check-label" for="chkActivos">Solo activos</label>
+    </div>
+    <button type="submit" class="btn btn-outline-secondary">Buscar</button>
+</form>
+<div class="table-wrap">
+    <table class="data-table">
+        <thead><tr><th>Trabajador</th><th>DNI</th><th>Cargo</th><th>Teléfono</th><th>Contrato</th><th>Estado</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var t in Model)
+        {
+            <tr>
+                <td><a asp-action="Details" asp-route-id="@t.id_trabajador"><strong>@t.apellidos, @t.nombres</strong></a><span class="cell-sub">@t.email</span></td>
+                <td>@t.dni</td>
+                <td>@t.cargo</td>
+                <td>@t.telefono</td>
+                <td>@t.fecha_contrato.ToString("dd/MM/yyyy")</td>
+                <td><partial name="_EstadoBadge" model="t.estado" /></td>
+                <td class="table-actions">
+                    <a asp-action="Edit" asp-route-id="@t.id_trabajador">Editar</a>
+                    <partial name="_EstadoButton" model='new EstadoToggle("Trabajadores", t.id_trabajador, t.estado)' />
+                </td>
+            </tr>
+        }
+        @if (!Model.Any())
+        {
+            <tr class="empty-row"><td colspan="7">No se encontraron trabajadores.</td></tr>
+        }
+        </tbody>
+    </table>
+</div>

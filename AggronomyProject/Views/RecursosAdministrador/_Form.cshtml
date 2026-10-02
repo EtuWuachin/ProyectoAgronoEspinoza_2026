@@ -1,0 +1,30 @@
+@model RecursosAdministrador
+<div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+<div class="form-grid">
+    <div class="mb-3 span-all">
+        <label asp-for="id_recurso" class="form-label">Recurso recibido</label>
+        <select asp-for="id_recurso" asp-items="(SelectList)ViewBag.id_recurso" class="form-select">
+            <option value="">Seleccione un recurso</option>
+        </select>
+        <span asp-validation-for="id_recurso" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="fecha_recepcion" class="form-label">Fecha de recepción</label>
+        <input asp-for="fecha_recepcion" type="date" class="form-control" />
+        <span asp-validation-for="fecha_recepcion" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="cantidad_recibida" class="form-label">Cantidad recibida</label>
+        <input asp-for="cantidad_recibida" type="number" min="0" class="form-control" />
+        <span asp-validation-for="cantidad_recibida" class="text-danger small"></span>
+    </div>
+    <div class="mb-3 span-all">
+        <label asp-for="observaciones" class="form-label">Observaciones</label>
+        <input asp-for="observaciones" class="form-control" maxlength="50" />
+        <span asp-validation-for="observaciones" class="text-danger small"></span>
+    </div>
+    <div class="form-check mb-3 span-all">
+        <input asp-for="estado" class="form-check-input" />
+        <label asp-for="estado" class="form-check-label">Acta vigente</label>
+    </div>
+</div>

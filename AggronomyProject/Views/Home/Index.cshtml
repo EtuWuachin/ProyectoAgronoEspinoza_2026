@@ -1,0 +1,68 @@
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "Panel general";
+    var hoy = DateTime.Today.ToString("dddd d 'de' MMMM 'de' yyyy", new System.Globalization.CultureInfo("es-PE"));
+}
+
+<div class="page-header">
+    <div>
+        <h1>Panel general</h1>
+        <p>@hoy</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a class="btn btn-outline-secondary" asp-controller="Recursos" asp-action="Create">Registrar recurso</a>
+        <a class="btn btn-primary" asp-controller="Pagos" asp-action="Create">Registrar pago</a>
+    </div>
+</div>
+
+<section class="ledger" aria-label="Totales del fundo">
+    <div class="ledger-item"><span class="ledger-value">@Model.TotalProductosIniciales</span><span class="ledger-label">Insumos activos</span></div>
+    <div class="ledger-item"><span class="ledger-value">@Model.TotalProductosFinales</span><span class="ledger-label">Cosechas activas</span></div>
+    <div class="ledger-item"><span class="ledger-value">@Model.TotalProveedores</span><span class="ledger-label">Proveedores</span></div>
+    <div class="ledger-item"><span class="ledger-value">@Model.TotalTrabajadores</span><span class="ledger-label">Trabajadores activos</span></div>
+    <div class="ledger-item"><span class="ledger-value">S/ @Model.TotalPagosMes.ToString("N2")</span><span class="ledger-label">Pagado este mes</span></div>
+</section>
+
+<div class="dash-grid">
+    <section class="panel">
+        <div class="panel-title">
+            <h2>Stock por reponer</h2>
+            <a asp-controller="Inventario" asp-action="Index" asp-route-SoloStockBajo="true">Ver todo</a>
+        </div>
+        @if (!Model.AlertasStock.Any())
+        {
+            <p class="empty-note">Todo el inventario está por encima de su stock mínimo.</p>
+        }
+        @foreach (var i in Model.AlertasStock)
+        {
+            <div class="restock-row">
+                <div>
+                    <a class="restock-name" asp-controller="Inventario" asp-action="Details" asp-route-id="@i.id_iventario">@i.nombre</a>
+                    <div class="restock-meta">Mínimo: @i.stock_minimo @i.unidad_medida</div>
+                </div>
+                <span class="restock-qty @(i.stock_actual == 0 ? "is-empty" : "")">@i.stock_actual @i.unidad_medida</span>
+            </div>
+        }
+    </section>
+
+    <section class="panel">
+        <div class="panel-title">
+            <h2>Últimos pagos</h2>
+            <a asp-controller="Pagos" asp-action="Index">Ver historial</a>
+        </div>
+        @if (!Model.UltimosPagos.Any())
+        {
+            <p class="empty-note">Aún no hay pagos registrados.</p>
+        }
+        @foreach (var p in Model.UltimosPagos)
+        {
+            <div class="restock-row">
+                <div>
+                    <a class="restock-name" asp-controller="Pagos" asp-action="Details" asp-route-id="@p.IdPago">@p.concepto</a>
+                    <div class="restock-meta">@p.fecha_pago.ToString("dd/MM/yyyy") &middot; @p.comprobante</div>
+                </div>
+                <strong>S/ @p.monto.ToString("N2")</strong>
+            </div>
+        }
+    </section>
+</div>

@@ -1,0 +1,43 @@
+@model IEnumerable<Rol>
+@{
+    ViewData["Title"] = "Roles";
+    var conteo = (Dictionary<int, int>)ViewBag.Conteo;
+}
+<div class="page-header">
+    <div><h1>Roles</h1><p>Los permisos se aplican por rol: Administrador accede a todo; Trabajador no ve Operaciones ni Usuarios</p></div>
+    <a class="btn btn-outline-secondary" asp-action="Index">Volver a usuarios</a>
+</div>
+
+<div class="table-wrap mb-4">
+    <table class="data-table">
+        <thead><tr><th>Rol</th><th class="num">Usuarios</th><th>Estado</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td><strong>@r.NombreRol</strong></td>
+                <td class="num">@(conteo.TryGetValue(r.IdRol, out var n) ? n : 0)</td>
+                <td><partial name="_EstadoBadge" model="r.Estado" /></td>
+                <td class="table-actions">
+                    @if (r.NombreRol != "Administrador")
+                    {
+                        <form asp-action="CambiarEstadoRol" method="post" class="d-inline" data-confirm="@(r.Estado ? "¿Desactivar este rol?" : "¿Activar este rol?")">
+                            <input type="hidden" name="id" value="@r.IdRol" />
+                            <button type="submit" class="link-btn @(r.Estado ? "is-danger" : "")">@(r.Estado ? "Desactivar" : "Activar")</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+<form asp-action="CrearRol" method="post" class="form-panel" style="max-width: 520px;">
+    <h2 class="h5 fw-bold mb-3">Nuevo rol</h2>
+    <div class="mb-3">
+        <label class="form-label" for="nombreRol">Nombre del rol</label>
+        <input id="nombreRol" name="nombreRol" class="form-control" maxlength="50" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Crear rol</button>
+</form>

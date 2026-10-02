@@ -1,0 +1,50 @@
+@model LoginViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iniciar sesión - Agronomía Espinoza</title>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="login-page">
+    <section class="login-brand">
+        <h1>Agronomía Espinoza</h1>
+        <p>Inventario, compras y pagos del fundo en un solo lugar.</p>
+    </section>
+    <section class="login-form">
+        <form asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" novalidate>
+            <h2 class="h4 fw-bold mb-3">Iniciar sesión</h2>
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2"></div>
+
+            <div class="mb-3">
+                <label asp-for="Identificador" class="form-label"></label>
+                <input asp-for="Identificador" class="form-control" autocomplete="username" autofocus />
+                <span asp-validation-for="Identificador" class="text-danger small"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Contrasena" class="form-label"></label>
+                <div class="input-group">
+                    <input asp-for="Contrasena" class="form-control" autocomplete="current-password" />
+                    <button type="button" id="verContrasena" class="btn btn-outline-secondary" aria-pressed="false">Mostrar</button>
+                </div>
+                <span asp-validation-for="Contrasena" class="text-danger small"></span>
+            </div>
+            <div class="form-check mb-3">
+                <input asp-for="Recordarme" class="form-check-input" />
+                <label asp-for="Recordarme" class="form-check-label"></label>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Entrar</button>
+        </form>
+    </section>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/modules/auth.js" asp-append-version="true"></script>
+</body>
+</html>
