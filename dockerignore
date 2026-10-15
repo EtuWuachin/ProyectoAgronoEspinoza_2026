@@ -1,0 +1,25 @@
+# Salida de compilación y caché de Visual Studio (en tu proyecto pesan decenas de MB)
+**/bin
+**/obj
+**/.vs
+**/*.user
+
+# Git y CI
+.git
+.github
+.gitignore
+.gitattributes
+
+# Editores
+**/.vscode
+**/.idea
+
+# Docker y secretos locales
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+.env
+.env.*
+
+# Documentación
+*.md

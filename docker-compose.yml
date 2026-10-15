@@ -1,0 +1,42 @@
+name: aggronomy
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: aggronomy-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Define MYSQL_ROOT_PASSWORD en el archivo .env}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-CP_AggronomyProject}
+    ports:
+      # 3307 en el host para no chocar con un MySQL local que ya use el 3306
+      - "127.0.0.1:3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      # Se usa 127.0.0.1 (TCP) y no el socket: así solo queda "healthy" cuando
+      # MySQL ya terminó de inicializarse y acepta conexiones reales.
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aggronomy-app
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Production}
+      # Sobrescribe ConnectionStrings:MySQL de appsettings.json (doble guion bajo = ":")
+      ConnectionStrings__MySQL: "Server=db;Port=3306;Database=${MYSQL_DATABASE:-CP_AggronomyProject};Uid=root;Pwd=${MYSQL_ROOT_PASSWORD};AllowPublicKeyRetrieval=true;SslMode=None;"
+    ports:
+      - "8080:8080"
+
+volumes:
+  mysql_data:
