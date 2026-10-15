@@ -1,10 +1,26 @@
 using AggronomyProject.Data;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. Base de datos (MySQL)
+// 0. Puerto: Railway define la variable PORT. En tu PC no existe y se usan los de launchSettings.
+var port = Environment.GetEnvironmentVariable("PORT");
+if (!string.IsNullOrEmpty(port))
+{
+    builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+}
+
+// 1. Cabeceras del proxy de Railway (el HTTPS termina en el proxy, no en tu app)
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    options.KnownNetworks.Clear();   // si lo marca obsoleto, usa KnownIPNetworks
+    options.KnownProxies.Clear();
+});
+
+// 2. Base de datos (MySQL)
 var connectionString = builder.Configuration.GetConnectionString("MySQL")
     ?? throw new InvalidOperationException("Connection string 'MySQL' not found.");
 
@@ -13,11 +29,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-// 2. Identity (se conserva solo como infraestructura de cookies/autenticación)
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+// 3. Identity (solo como infraestructura de cookies/autenticación)
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+        options.SignIn.RequireConfirmedAccount = false)   // true exige confirmar por correo
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-// Rutas de login / acceso denegado para [Authorize]
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Account/Login";
@@ -26,14 +42,25 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
-// 3. MVC con vistas (en tu versión estaba AddControllers(), que NO registra vistas Razor)
+// 4. MVC con vistas
 builder.Services.AddControllersWithViews(options =>
 {
-    // Evita que las propiedades de navegación (Rol, proveedor, inventario...) sean "Required" implícitas
+    // Evita que las propiedades de navegación sean "Required" implícitas
     options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
 });
 
 var app = builder.Build();
+
+// Debe ir primero para que el resto del pipeline vea el esquema HTTPS real
+app.UseForwardedHeaders();
+
+// 5. Crear/actualizar las tablas al arrancar (necesita carpeta Migrations).
+//    Si creaste la base con un script SQL, borra este bloque.
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate();
+}
 
 if (app.Environment.IsDevelopment())
 {
@@ -49,7 +76,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-app.UseAuthentication();   // <- faltaba; sin esto [Authorize] nunca ve al usuario
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
