@@ -13,6 +13,10 @@ namespace AggronomyProject.Controllers
     {
         public async Task<IActionResult> Index(InventarioFilterViewModel filtro)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(filtro);
+            }
             var query = db.Inventarios.AsNoTracking()
                 .Include(i => i.productoinicial)
                 .Include(i => i.productofinal)
