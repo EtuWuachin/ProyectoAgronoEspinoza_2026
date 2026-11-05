@@ -7,7 +7,7 @@ namespace AggronomyProject.Models
     public class Proveedor
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id_proveedor { get; set; }
+        public required int id_proveedor { get; set; }
 
         [Required, StringLength(50)]
         public required string nombre { get; set; }
@@ -25,7 +25,7 @@ namespace AggronomyProject.Models
         public required string email { get; set; }
 
         [Required]
-        public bool estado { get; set; }
+        public required bool estado { get; set; }
 
 
         public required ICollection<Recurso> recurso { get; set; }
