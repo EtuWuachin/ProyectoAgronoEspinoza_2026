@@ -6,7 +6,7 @@ namespace AggronomyProject.Models
     public class MetodoPago
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IdMetodoPago { get; set; }
+        public required int IdMetodoPago { get; set; }
 
         [Required, StringLength(50)]
         public required string nombre { get; set; }
@@ -15,9 +15,9 @@ namespace AggronomyProject.Models
         public required string descripcion { get; set; }
 
         [Required]
-        public bool estado { get; set; } 
+        public required bool estado { get; set; } 
 
-        public int id_pago { get; set; }
+        public required int id_pago { get; set; }
         public required Pago pago { get; set; }
 
         public required ICollection<Administracion> administracion { get; set; }
