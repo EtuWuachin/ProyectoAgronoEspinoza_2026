@@ -7,7 +7,7 @@ namespace AggronomyProject.Models
     public class ProductoFinal
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id_producto_final { get; set; }
+        public required int id_producto_final { get; set; }
 
         [Required, StringLength(50)]
         public required string nombre { get; set; }
@@ -16,16 +16,16 @@ namespace AggronomyProject.Models
         public required string descripcion { get; set; }
 
         [Required]
-        public int cantidad_producida { get; set; }
+        public required int cantidad_producida { get; set; }
 
         [Required, StringLength(20)]
         public required string unidad_medida { get; set; }
 
         [Required]
-        public float precio_venta { get; set; }
+        public required float precio_venta { get; set; }
 
         [Required]
-        public bool estado { get; set; }
+        public required bool estado { get; set; }
 
 
         public required ICollection<Inventario> inventario { get; set; }
