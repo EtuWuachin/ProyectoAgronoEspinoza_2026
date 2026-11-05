@@ -6,11 +6,11 @@ namespace AggronomyProject.Models
     public class Rol
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IdRol { get; set; }
+        public required int IdRol { get; set; }
         [Required, StringLength(50)]
         public required string NombreRol { get; set; }
         [Required]
-        public bool Estado { get; set; }
+        public required bool Estado { get; set; }
 
         public required ICollection<Usuario> Usuario { get; set; }
 
