@@ -15,7 +15,7 @@ namespace AggronomyProject.Models
         public required string descripcion { get; set; }
 
         [Required]
-        public DateTime fecha_registro { get; set; }
+        public required DateTime Fecha_registro { get; set; }
 
         [Required, StringLength(100)]
         public required string responsable { get; set; }
