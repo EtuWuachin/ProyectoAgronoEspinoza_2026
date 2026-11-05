@@ -15,14 +15,14 @@ namespace AggronomyProject.Models
         public DateTime fecha_pago { get; set; }
 
         [Required, StringLength(100)]
-        public string concepto { get; set; }
+        public required string concepto { get; set; }
 
         [Required, StringLength(50)]
-        public string comprobante { get; set; }
+        public required string comprobante { get; set; }
 
         [Required]
         public bool estado { get; set; } 
 
-        public ICollection<MetodoPago> metodopago { get; set; }
+        public required ICollection<MetodoPago> metodopago { get; set; }
     }
 }

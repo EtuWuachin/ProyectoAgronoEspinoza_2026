@@ -10,16 +10,16 @@ namespace AggronomyProject.Models
         public int id_producto_inicial { get; set; }
 
         [Required, StringLength(50)]
-        public string nombre { get; set; }
+        public required string nombre { get; set; }
 
         [Required, StringLength(100)]
-        public string descripcion { get; set; }
+        public required string descripcion { get; set; }
 
         [Required]
         public int cantidad_inicial { get; set; }
 
         [Required, StringLength(20)]
-        public string unidad_medida { get; set; }
+        public required string unidad_medida { get; set; }
 
         [Required]
         public float costo_unitario { get; set; }
@@ -28,7 +28,7 @@ namespace AggronomyProject.Models
         public DateTime fecha_ingreso { get; set; }
 
         [Required, StringLength(50)]
-        public string proveedor_origen { get; set; }
+        public required string proveedor_origen { get; set; }
 
         [Required]
         public bool estado { get; set; }

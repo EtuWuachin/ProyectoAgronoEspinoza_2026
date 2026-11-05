@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Org.BouncyCastle.Ocsp;
 
 namespace AggronomyProject.Models
 {
@@ -9,23 +10,23 @@ namespace AggronomyProject.Models
         public int id_reporte { get; set; }
 
         [Required, StringLength(100)]
-        public string titulo { get; set; }
+        public required string titulo { get; set; }
 
         [Required, StringLength(50)]
-        public string tipo_reporte { get; set; }
+        public required string tipo_reporte { get; set; }
 
         [Required]
         public DateTime fecha_generacion { get; set; }
 
         [Required]
-        public string contenido { get; set; }
+        public required string contenido { get; set; }
 
         [Required, StringLength(50)]
-        public string generado_por { get; set; }
+        public required string generado_por { get; set; }
 
         [Required]
         public bool estado { get; set; } 
 
-        public ICollection<Administracion> administracion { get; set; }
+        public required ICollection<Administracion> administracion { get; set; }
     }
 }

@@ -15,14 +15,14 @@ namespace AggronomyProject.Models
         public int cantidad_recibida { get; set; }
 
         [Required, StringLength(50)]
-        public string observaciones { get; set; }
+        public required string observaciones { get; set; }
 
         [Required]
         public bool estado { get; set; }
 
 
         public int id_recurso { get; set; }
-        public Recurso recurso { get; set; }
+        public required Recurso recurso { get; set; }
 
     }
 }

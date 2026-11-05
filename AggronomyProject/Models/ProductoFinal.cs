@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace AggronomyProject.Models
 {
@@ -9,16 +10,16 @@ namespace AggronomyProject.Models
         public int id_producto_final { get; set; }
 
         [Required, StringLength(50)]
-        public string nombre { get; set; }
+        public required string nombre { get; set; }
 
         [Required, StringLength(100)]
-        public string descripcion { get; set; }
+        public required string descripcion { get; set; }
 
         [Required]
         public int cantidad_producida { get; set; }
 
         [Required, StringLength(20)]
-        public string unidad_medida { get; set; }
+        public required string unidad_medida { get; set; }
 
         [Required]
         public float precio_venta { get; set; }
@@ -27,6 +28,6 @@ namespace AggronomyProject.Models
         public bool estado { get; set; }
 
 
-        public ICollection<Inventario> inventario { get; set; }
+        public required ICollection<Inventario> inventario { get; set; }
     }
 }

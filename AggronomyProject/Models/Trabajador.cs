@@ -9,22 +9,22 @@ namespace AggronomyProject.Models
         public int id_trabajador { get; set; }
 
         [Required, StringLength(50)]
-        public string nombres { get; set; }
+        public required string nombres { get; set; }
 
         [Required, StringLength(50)]
-        public string apellidos { get; set; }
+        public required string apellidos { get; set; }
 
         [Required, StringLength(15)]
-        public string dni { get; set; }
+        public required string dni { get; set; }
 
         [Required, StringLength(50)]
-        public string cargo { get; set; }
+        public required string cargo { get; set; }
 
         [Required, StringLength(20)]
-        public string telefono { get; set; }
+        public required string telefono { get; set; }
 
         [Required, StringLength(100)]
-        public string email { get; set; }
+        public required string email { get; set; }
 
         [Required]
         public DateTime fecha_contrato { get; set; }
@@ -32,7 +32,7 @@ namespace AggronomyProject.Models
         [Required]
         public bool estado { get; set; } 
 
-        public ICollection<Administracion> administracion { get; set; }
+        public required ICollection<Administracion> administracion { get; set; }
         
     }
 }

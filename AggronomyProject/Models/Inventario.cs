@@ -9,10 +9,10 @@ namespace AggronomyProject.Models
         public int id_iventario { get; set; }
 
         [Required, StringLength(50)]
-        public string nombre { get; set; }
+        public required string nombre { get; set; }
 
         [Required, StringLength(100)]
-        public string descripcion { get; set; }
+        public required string descripcion { get; set; }
 
         [Required]
         public int stock_actual { get; set; }
@@ -21,7 +21,7 @@ namespace AggronomyProject.Models
         public int stock_minimo { get; set; }
 
         [Required, StringLength(20)]
-        public string unidad_medida { get; set; }
+        public required string unidad_medida { get; set; }
 
         [Required]
         public DateTime fecha_actualizacion { get; set; }
@@ -30,11 +30,11 @@ namespace AggronomyProject.Models
         public bool estado { get; set; }
 
         public int id_producto_inicial { get; set; }
-        public ProductoInicial productoinicial { get; set; }
+        public required ProductoInicial productoinicial { get; set; }
         public int id_producto_final { get; set; }
-        public ProductoFinal productofinal { get; set; }
+        public required ProductoFinal productofinal { get; set; }
 
 
-        public ICollection<Administracion> administracion { get; set; }
+        public required ICollection<Administracion> administracion { get; set; }
     }
 }

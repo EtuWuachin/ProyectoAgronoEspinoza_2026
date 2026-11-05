@@ -10,24 +10,24 @@ namespace AggronomyProject.Models
         public int id_proveedor { get; set; }
 
         [Required, StringLength(50)]
-        public string nombre { get; set; }
+        public required string nombre { get; set; }
 
         [Required, StringLength(30)]
-        public string ruc { get; set; }
+        public required string ruc { get; set; }
 
         [Required, StringLength(50)]
-        public string direccion { get; set; }
+        public required string direccion { get; set; }
 
         [Required, StringLength(20)]
-        public string telefono { get; set; }
+        public required string telefono { get; set; }
 
         [Required, StringLength(30)]
-        public string email { get; set; }
+        public required string email { get; set; }
 
         [Required]
         public bool estado { get; set; }
 
 
-        public ICollection<Recurso> recurso { get; set; }
+        public required ICollection<Recurso> recurso { get; set; }
     }
 }

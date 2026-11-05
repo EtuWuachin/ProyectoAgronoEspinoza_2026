@@ -9,17 +9,17 @@ namespace AggronomyProject.Models
         public int IdMetodoPago { get; set; }
 
         [Required, StringLength(50)]
-        public string nombre { get; set; }
+        public required string nombre { get; set; }
 
         [Required, StringLength(100)]
-        public string descripcion { get; set; }
+        public required string descripcion { get; set; }
 
         [Required]
         public bool estado { get; set; } 
 
         public int id_pago { get; set; }
-        public Pago pago { get; set; }
+        public required Pago pago { get; set; }
 
-        public ICollection<Administracion> administracion { get; set; }
+        public required ICollection<Administracion> administracion { get; set; }
     }
 }
