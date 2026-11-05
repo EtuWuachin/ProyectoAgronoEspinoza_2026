@@ -16,7 +16,7 @@ if (!string.IsNullOrEmpty(port))
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-    options.KnownNetworks.Clear();   // si lo marca obsoleto, usa KnownIPNetworks
+    options.KnownIPNetworks.Clear();   
     options.KnownProxies.Clear();
 });
 
