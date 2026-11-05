@@ -6,7 +6,7 @@ namespace AggronomyProject.Models
     public class Trabajador
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id_trabajador { get; set; }
+        public required int id_trabajador { get; set; }
 
         [Required, StringLength(50)]
         public required string nombres { get; set; }
@@ -27,10 +27,10 @@ namespace AggronomyProject.Models
         public required string email { get; set; }
 
         [Required]
-        public DateTime fecha_contrato { get; set; }
+        public required DateTime fecha_contrato { get; set; }
 
         [Required]
-        public bool estado { get; set; } 
+        public required bool estado { get; set; } 
 
         public required ICollection<Administracion> administracion { get; set; }
         
