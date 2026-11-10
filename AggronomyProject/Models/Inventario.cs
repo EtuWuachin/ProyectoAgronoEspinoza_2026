@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AggronomyProject.Models
@@ -6,35 +6,36 @@ namespace AggronomyProject.Models
     public class Inventario
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public required int id_inventario { get; set; }
+        [Column("id_iventario")]
+        public int id_inventario { get; set; }
 
         [Required, StringLength(50)]
-        public required string nombre { get; set; }
+        public string nombre { get; set; } = string.Empty;
 
         [Required, StringLength(100)]
-        public required string descripcion { get; set; }
+        public string descripcion { get; set; } = string.Empty;
 
         [Required]
-        public required int stock_actual { get; set; }
+        public int stock_actual { get; set; }
 
         [Required]
-        public required int stock_minimo { get; set; }
+        public int stock_minimo { get; set; }
 
         [Required, StringLength(20)]
-        public required string unidad_medida { get; set; }
+        public string unidad_medida { get; set; } = string.Empty;
 
         [Required]
-        public required DateTime fecha_actualizacion { get; set; }
+        public DateTime fecha_actualizacion { get; set; }
 
         [Required]
-        public required bool estado { get; set; }
+        public bool estado { get; set; }
 
-        public required int id_producto_inicial { get; set; }
-        public required ProductoInicial productoinicial { get; set; }
-        public required int id_producto_final { get; set; }
-        public required ProductoFinal productofinal { get; set; }
+        public int id_producto_inicial { get; set; }
+        public ProductoInicial productoinicial { get; set; } = null!;
+        public int id_producto_final { get; set; }
+        public ProductoFinal productofinal { get; set; } = null!;
 
 
-        public required ICollection<Administracion> administracion { get; set; }
+        public ICollection<Administracion> administracion { get; set; } = new List<Administracion>();
     }
 }

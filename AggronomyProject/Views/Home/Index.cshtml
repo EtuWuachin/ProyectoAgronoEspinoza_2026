@@ -37,7 +37,7 @@
         {
             <div class="restock-row">
                 <div>
-                    <a class="restock-name" asp-controller="Inventario" asp-action="Details" asp-route-id="@i.id_iventario">@i.nombre</a>
+                    <a class="restock-name" asp-controller="Inventario" asp-action="Details" asp-route-id="@i.id_inventario">@i.nombre</a>
                     <div class="restock-meta">Mínimo: @i.stock_minimo @i.unidad_medida</div>
                 </div>
                 <span class="restock-qty @(i.stock_actual == 0 ? "is-empty" : "")">@i.stock_actual @i.unidad_medida</span>

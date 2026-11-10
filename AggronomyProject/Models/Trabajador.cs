@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AggronomyProject.Models
@@ -6,33 +6,33 @@ namespace AggronomyProject.Models
     public class Trabajador
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public required int id_trabajador { get; set; }
+        public int id_trabajador { get; set; }
 
         [Required, StringLength(50)]
-        public required string nombres { get; set; }
+        public string nombres { get; set; } = string.Empty;
 
         [Required, StringLength(50)]
-        public required string apellidos { get; set; }
+        public string apellidos { get; set; } = string.Empty;
 
         [Required, StringLength(15)]
-        public required string dni { get; set; }
+        public string dni { get; set; } = string.Empty;
 
         [Required, StringLength(50)]
-        public required string cargo { get; set; }
+        public string cargo { get; set; } = string.Empty;
 
         [Required, StringLength(20)]
-        public required string telefono { get; set; }
+        public string telefono { get; set; } = string.Empty;
 
         [Required, StringLength(100)]
-        public required string email { get; set; }
+        public string email { get; set; } = string.Empty;
 
         [Required]
-        public required DateTime fecha_contrato { get; set; }
+        public DateTime fecha_contrato { get; set; }
 
         [Required]
-        public required bool estado { get; set; } 
+        public bool estado { get; set; }
 
-        public required ICollection<Administracion> administracion { get; set; }
-        
+        public ICollection<Administracion> administracion { get; set; } = new List<Administracion>();
+
     }
 }

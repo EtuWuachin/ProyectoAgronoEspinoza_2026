@@ -1,4 +1,4 @@
-﻿using AggronomyProject.Models;
+using AggronomyProject.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -103,7 +103,7 @@ namespace AggronomyProject.Data
                     generado_por = "Sistema",
                     estado = true
                 });
-            // Pago 
+            // Pago
             modelBuilder.Entity<Pago>().HasData(
                 new Pago
                 {
@@ -124,7 +124,7 @@ namespace AggronomyProject.Data
                     estado = true,
                     id_pago = 1
                 });
-            // ProductoInicial 
+            // ProductoInicial
             modelBuilder.Entity<ProductoInicial>().HasData(
                 new ProductoInicial
                 {
@@ -154,7 +154,7 @@ namespace AggronomyProject.Data
             modelBuilder.Entity<Inventario>().HasData(
                 new Inventario
                 {
-                    id_iventario = 1,
+                    id_inventario = 1,
                     nombre = "Inventario General",
                     descripcion = "Inventario inicial del sistema",
                     stock_actual = 0,
@@ -179,7 +179,7 @@ namespace AggronomyProject.Data
                     estado = true
                 }
             );
-            // Recurso 
+            // Recurso
             modelBuilder.Entity<Recurso>().HasData(
                 new Recurso
                 {

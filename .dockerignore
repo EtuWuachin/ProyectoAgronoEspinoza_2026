@@ -1,4 +1,4 @@
-# Salida de compilación y caché de Visual Studio (en tu proyecto pesan decenas de MB)
+# Salida de compilación y caché de Visual Studio
 **/bin
 **/obj
 **/.vs

@@ -38,7 +38,7 @@ namespace AggronomyProject.Controllers
                 .Include(i => i.productoinicial)
                 .Include(i => i.productofinal)
                 .Include(i => i.administracion)
-                .FirstOrDefaultAsync(i => i.id_iventario == id);
+                .FirstOrDefaultAsync(i => i.id_inventario == id);
             return m == null ? NotFound() : View(m);
         }
 
@@ -78,7 +78,7 @@ namespace AggronomyProject.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Inventario m)
         {
-            if (id != m.id_iventario) return NotFound();
+            if (id != m.id_inventario) return NotFound();
             if (!ModelState.IsValid)
             {
                 await CargarListas(m);

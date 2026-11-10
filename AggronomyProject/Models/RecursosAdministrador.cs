@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AggronomyProject.Models
@@ -6,23 +6,23 @@ namespace AggronomyProject.Models
     public class RecursosAdministrador
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public required int id_recursos_administrador { get; set; }
+        public int id_recursos_administrador { get; set; }
 
         [Required]
-        public required DateTime fecha_recepcion { get; set; }
+        public DateTime fecha_recepcion { get; set; }
 
         [Required]
-        public required int cantidad_recibida { get; set; }
+        public int cantidad_recibida { get; set; }
 
         [Required, StringLength(50)]
-        public required string observaciones { get; set; }
+        public string observaciones { get; set; } = string.Empty;
 
         [Required]
-        public required bool estado { get; set; }
+        public bool estado { get; set; }
 
 
-        public required int id_recurso { get; set; }
-        public required Recurso recurso { get; set; }
+        public int id_recurso { get; set; }
+        public Recurso recurso { get; set; } = null!;
 
     }
 }

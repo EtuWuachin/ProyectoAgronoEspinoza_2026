@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AggronomyProject.Models
@@ -6,23 +6,23 @@ namespace AggronomyProject.Models
     public class Pago
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public required int IdPago { get; set; }
+        public int IdPago { get; set; }
 
         [Required, Column(TypeName = "decimal(18,2)")] // !Precision de 18 escala de 2
-        public required decimal monto { get; set; }
+        public decimal monto { get; set; }
 
         [Required]
-        public required DateTime fecha_pago { get; set; }
+        public DateTime fecha_pago { get; set; }
 
         [Required, StringLength(100)]
-        public required string concepto { get; set; }
+        public string concepto { get; set; } = string.Empty;
 
         [Required, StringLength(50)]
-        public required string comprobante { get; set; }
+        public string comprobante { get; set; } = string.Empty;
 
         [Required]
-        public required bool estado { get; set; } 
+        public bool estado { get; set; }
 
-        public required ICollection<MetodoPago> metodopago { get; set; }
+        public ICollection<MetodoPago> metodopago { get; set; } = new List<MetodoPago>();
     }
 }

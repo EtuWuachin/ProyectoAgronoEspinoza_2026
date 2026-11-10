@@ -29,7 +29,7 @@
         @foreach (var i in Model.inventario)
         {
             <div class="restock-row">
-                <a class="restock-name" asp-controller="Inventario" asp-action="Details" asp-route-id="@i.id_iventario">@i.nombre</a>
+                <a class="restock-name" asp-controller="Inventario" asp-action="Details" asp-route-id="@i.id_inventario">@i.nombre</a>
                 <span>@i.stock_actual @i.unidad_medida</span>
             </div>
         }

@@ -26,7 +26,7 @@ namespace AggronomyProject.Tests
             // 2. Ejecución (Act)
             // Asignamos los datos basándonos en las propiedades de Inventario.cs
             Inventario inv = new Inventario();
-            inv.id_iventario = idEsperado; // Escrito exactamente como en tu modelo (sin la 'n')
+            inv.id_inventario = idEsperado;
             inv.nombre = nombreEsperado;
             inv.descripcion = descripcionEsperada;
             inv.stock_actual = stockActualEsperado;
@@ -38,7 +38,7 @@ namespace AggronomyProject.Tests
             inv.id_producto_final = idProdFinalEsperado;
 
             // 3. Afirmación (Assert)
-            Assert.AreEqual(idEsperado, inv.id_iventario);
+            Assert.AreEqual(idEsperado, inv.id_inventario);
             Assert.AreEqual(nombreEsperado, inv.nombre);
             Assert.AreEqual(descripcionEsperada, inv.descripcion);
             Assert.AreEqual(stockActualEsperado, inv.stock_actual);
