@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,16 +10,16 @@ namespace AggronomyProject.Models
         public int id_producto_inicial { get; set; }
 
         [Required, StringLength(50)]
-        public string nombre { get; set; }
+        public string nombre { get; set; } = string.Empty;
 
         [Required, StringLength(100)]
-        public string descripcion { get; set; }
+        public string descripcion { get; set; } = string.Empty;
 
         [Required]
         public int cantidad_inicial { get; set; }
 
         [Required, StringLength(20)]
-        public string unidad_medida { get; set; }
+        public string unidad_medida { get; set; } = string.Empty;
 
         [Required]
         public float costo_unitario { get; set; }
@@ -28,12 +28,12 @@ namespace AggronomyProject.Models
         public DateTime fecha_ingreso { get; set; }
 
         [Required, StringLength(50)]
-        public string proveedor_origen { get; set; }
+        public string proveedor_origen { get; set; } = string.Empty;
 
         [Required]
         public bool estado { get; set; }
 
 
-        public ICollection<Inventario> inventario { get; set; }
+        public ICollection<Inventario> inventario { get; set; } = new List<Inventario>();
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AggronomyProject.Models
@@ -15,14 +15,14 @@ namespace AggronomyProject.Models
         public DateTime fecha_pago { get; set; }
 
         [Required, StringLength(100)]
-        public string concepto { get; set; }
+        public string concepto { get; set; } = string.Empty;
 
         [Required, StringLength(50)]
-        public string comprobante { get; set; }
+        public string comprobante { get; set; } = string.Empty;
 
         [Required]
-        public bool estado { get; set; } 
+        public bool estado { get; set; }
 
-        public ICollection<MetodoPago> metodopago { get; set; }
+        public ICollection<MetodoPago> metodopago { get; set; } = new List<MetodoPago>();
     }
 }

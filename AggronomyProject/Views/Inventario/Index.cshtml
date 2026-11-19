@@ -48,7 +48,7 @@
                 var pct = i.stock_minimo <= 0 ? 100 : Math.Min(100, (int)(i.stock_actual * 100.0 / (i.stock_minimo * 2)));
                 <tr data-nombre="@((i.nombre + " " + i.descripcion).ToLower())">
                     <td>
-                        <a asp-action="Details" asp-route-id="@i.id_iventario"><strong>@i.nombre</strong></a>
+                        <a asp-action="Details" asp-route-id="@i.id_inventario"><strong>@i.nombre</strong></a>
                         <span class="cell-sub">@i.descripcion</span>
                     </td>
                     <td>@i.productoinicial?.nombre</td>
@@ -62,9 +62,9 @@
                     <td><partial name="_EstadoBadge" model="i.estado" /></td>
                     <td class="table-actions">
                         <button type="button" class="link-btn" data-bs-toggle="modal" data-bs-target="#ajusteStockModal"
-                                data-id="@i.id_iventario" data-nombre="@i.nombre" data-stock="@i.stock_actual" data-unidad="@i.unidad_medida">Ajustar stock</button>
-                        <a asp-action="Edit" asp-route-id="@i.id_iventario">Editar</a>
-                        <partial name="_EstadoButton" model='new EstadoToggle("Inventario", i.id_iventario, i.estado)' />
+                                data-id="@i.id_inventario" data-nombre="@i.nombre" data-stock="@i.stock_actual" data-unidad="@i.unidad_medida">Ajustar stock</button>
+                        <a asp-action="Edit" asp-route-id="@i.id_inventario">Editar</a>
+                        <partial name="_EstadoButton" model='new EstadoToggle("Inventario", i.id_inventario, i.estado)' />
                     </td>
                 </tr>
             }

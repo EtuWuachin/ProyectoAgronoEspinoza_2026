@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AggronomyProject.Models
@@ -8,11 +8,11 @@ namespace AggronomyProject.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdRol { get; set; }
         [Required, StringLength(50)]
-        public string NombreRol { get; set; }
+        public string NombreRol { get; set; } = string.Empty;
         [Required]
         public bool Estado { get; set; }
 
-        public ICollection<Usuario> Usuario { get; set; }
+        public ICollection<Usuario> Usuario { get; set; } = new List<Usuario>();
 
     }
 }

@@ -73,7 +73,7 @@ namespace AggronomyProject.Controllers
 
             ViewBag.id_inventario = new SelectList(
                 await db.Inventarios.AsNoTracking().Where(i => i.estado).OrderBy(i => i.nombre).ToListAsync(),
-                "id_iventario", "nombre", m?.id_inventario);
+                "id_inventario", "nombre", m?.id_inventario);
 
             ViewBag.id_metodo_pago = new SelectList(
                 await db.MetodosPagos.AsNoTracking().Where(mp => mp.estado).OrderBy(mp => mp.nombre).ToListAsync(),
