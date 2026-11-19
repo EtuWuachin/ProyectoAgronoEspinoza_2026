@@ -1,14 +1,17 @@
 @model Pago
 <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+<p class="a11y-instruction">Los datos del pago son obligatorios. Escribe el motivo, el monto en soles, la fecha y el comprobante. Revisa antes de guardar.</p>
 <div class="form-grid">
     <div class="mb-3 span-all">
         <label asp-for="concepto" class="form-label">Concepto</label>
-        <input asp-for="concepto" class="form-control" />
+        <input asp-for="concepto" class="form-control" aria-describedby="conceptoAyuda" />
+        <p class="form-hint" id="conceptoAyuda">¿Qué se pagó? Por ejemplo: compra de abono.</p>
         <span asp-validation-for="concepto" class="text-danger small"></span>
     </div>
     <div class="mb-3">
         <label asp-for="monto" class="form-label">Monto (S/)</label>
-        <input asp-for="monto" type="number" step="0.01" min="0.01" class="form-control" />
+        <input asp-for="monto" type="number" step="0.01" min="0.01" class="form-control" aria-describedby="montoAyuda" />
+        <p class="form-hint" id="montoAyuda">Escribe un monto mayor que cero. Por ejemplo: 25.50 soles.</p>
         <span asp-validation-for="monto" class="text-danger small"></span>
     </div>
     <div class="mb-3">

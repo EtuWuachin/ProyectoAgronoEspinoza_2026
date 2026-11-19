@@ -115,3 +115,67 @@ a:hover { color: var(--leaf-dark); }
   .app-content { padding: 0; max-width: none; }
   .panel { border: 0; padding: 0; }
 }
+
+/* Ayudas propias de accesibilidad, compartidas por todas las vistas. */
+[hidden] { display: none !important; }
+:focus-visible { outline: 3px solid var(--wheat) !important; outline-offset: 3px; }
+html[data-text-size="large"] { font-size: 30px; }
+.skip-link { position: fixed; top: .5rem; left: .5rem; z-index: 1200; transform: translateY(-200%); padding: .75rem 1rem; background: var(--panel); color: var(--ink); border: 2px solid currentColor; }
+.skip-link:focus { transform: none; }
+.accessibility-tools { margin: .75rem 1rem; padding: .5rem .75rem; background: var(--panel); color: var(--ink); border: 1px solid #68786b; border-radius: var(--radius); }
+.accessibility-tools summary { cursor: pointer; min-height: 44px; padding: .5rem 0; font-weight: 600; }
+.accessibility-options { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; padding-top: .5rem; }
+.accessibility-options p { flex-basis: 100%; margin: .25rem 0; }
+.accessibility-options [aria-pressed="true"] { border: 2px solid currentColor; text-decoration: underline; font-weight: 700; }
+.login-tools { grid-column: 1 / -1; }
+.login-page { grid-template-rows: auto 1fr; }
+.a11y-instruction { line-height: 1.6; max-width: 75ch; }
+.btn, .link-btn, .side-link, .movement-choice { min-height: 44px; }
+.btn, .link-btn { min-width: 44px; }
+.btn-close { min-width: 44px; min-height: 44px; box-sizing: border-box; }
+.form-control, .form-select { min-height: 44px; border-color: #68786b; }
+.form-check { display: flex; align-items: center; gap: .5rem; padding-left: 0; }
+.form-check .form-check-input { float: none; margin: 0; flex-shrink: 0; }
+.form-check-label { display: inline-flex; align-items: center; min-height: 44px; }
+.form-grid { grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); }
+.movement-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr)); gap: .75rem; }
+.movement-choice { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; border: 2px solid #68786b; border-radius: var(--radius); padding: .75rem; cursor: pointer; }
+.movement-choice:has(input:checked) { border-color: var(--leaf); background: var(--paper); font-weight: 700; }
+.movement-choice:focus-within { outline: 2px solid var(--wheat); outline-offset: 2px; }
+.stock-status { display: block; font-size: .9rem; font-weight: 600; margin-top: .25rem; }
+.toast-stack { max-width: calc(100vw - 2rem); }
+.toast { width: min(420px, calc(100vw - 2rem)); font-size: 1rem; }
+.topbar { flex-wrap: wrap; }
+.modal-dialog { max-width: min(640px, calc(100% - 1rem)); }
+.modal-content { overflow-wrap: anywhere; }
+.side-link { display: flex; align-items: center; gap: .5rem; }
+.side-link [aria-hidden] { width: 1.5em; flex-shrink: 0; text-align: center; }
+html[data-contrast="high"] {
+  --ink: #ffffff; --muted: #e6e6e6; --paper: #111111; --panel: #000000;
+  --line: #ffffff; --field: #000000; --field-soft: #222222;
+  --leaf: #ffff00; --leaf-dark: #ffff00; --wheat: #ffff00; --danger: #ffbdbd;
+  --bs-body-color: #ffffff; --bs-body-bg: #000000; --bs-secondary-color: #e6e6e6;
+}
+html[data-contrast="high"] .panel,
+html[data-contrast="high"] .form-panel,
+html[data-contrast="high"] .data-table,
+html[data-contrast="high"] .data-table th,
+html[data-contrast="high"] .data-table td,
+html[data-contrast="high"] .modal-content,
+html[data-contrast="high"] .ledger { background: #000; color: #fff; border-color: #fff; }
+html[data-contrast="high"] .form-control,
+html[data-contrast="high"] .form-select { background-color: #000; color: #fff; border-color: #fff; }
+html[data-contrast="high"] .form-control::placeholder { color: #ddd; opacity: 1; }
+html[data-contrast="high"] .btn-primary { background: #ffff00; color: #000; border-color: #ffff00; }
+html[data-contrast="high"] .btn-outline-secondary { color: #fff; background: #000; border-color: #fff; }
+html[data-contrast="high"] .text-danger,
+html[data-contrast="high"] .field-validation-error { color: #ffbdbd !important; }
+html[data-contrast="high"] .text-muted { color: #e6e6e6 !important; }
+html[data-contrast="high"] .side-link.active { background: #ffff00; color: #000; }
+html[data-contrast="high"] .stock-alert-link { background: #ffff00; color: #000; }
+html[data-contrast="high"] .btn-close { filter: invert(1); }
+@media (max-width: 991px) {
+  .sidebar { width: min(90vw, 350px); }
+  .login-form { padding: 1rem; }
+  .login-brand { min-height: auto; }
+}

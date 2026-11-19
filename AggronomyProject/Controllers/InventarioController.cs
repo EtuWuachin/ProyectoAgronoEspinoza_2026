@@ -93,14 +93,20 @@ namespace AggronomyProject.Controllers
 
         // Entradas / salidas rápidas desde el modal _AjusteStockModal
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> AjusteStock(int id, int cantidad, string tipo)
+        public async Task<IActionResult> AjusteStock(int id, int cantidad, string tipo, bool confirmado = false)
         {
             var m = await db.Inventarios.FindAsync(id);
             if (m == null) return NotFound();
 
-            if (cantidad <= 0)
+            if (!confirmado)
             {
-                TempData["Error"] = "La cantidad debe ser mayor a cero.";
+                TempData["Error"] = "Revisa el movimiento y pulsa Confirmar y guardar antes de registrar el ajuste.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            if (!ModelState.IsValid || cantidad <= 0 || (tipo != "entrada" && tipo != "salida"))
+            {
+                TempData["Error"] = "Elige entrada o salida y escribe una cantidad entera mayor que cero.";
                 return RedirectToAction(nameof(Index));
             }
 
@@ -115,6 +121,11 @@ namespace AggronomyProject.Controllers
             }
             else
             {
+                if (cantidad > int.MaxValue - m.stock_actual)
+                {
+                    TempData["Error"] = "La entrada supera la capacidad del inventario. Escribe una cantidad menor.";
+                    return RedirectToAction(nameof(Index));
+                }
                 m.stock_actual += cantidad;
             }
 

@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="~/css/tables.css" asp-append-version="true" />
 </head>
 <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
     <div class="app @(autenticado ? "" : "app--bare")">
         @if (autenticado)
         {
@@ -26,7 +27,8 @@
             {
                 <partial name="_Navbar" />
             }
-            <main role="main" class="app-content">
+            <partial name="_AccessibilityTools" />
+            <main id="contenido" tabindex="-1" class="app-content">
                 @RenderBody()
             </main>
         </div>
@@ -38,5 +40,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/js/accessibility.js" asp-append-version="true"></script>
 </body>
 </html>

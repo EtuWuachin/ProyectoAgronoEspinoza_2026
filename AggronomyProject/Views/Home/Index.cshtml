@@ -8,6 +8,7 @@
     <div>
         <h1>Panel general</h1>
         <p>@hoy</p>
+        <p class="a11y-instruction">Revisa las alertas de stock. Usa Registrar recurso o Registrar pago para iniciar una tarea.</p>
     </div>
     <div class="d-flex gap-2">
         <a class="btn btn-outline-secondary" asp-controller="Recursos" asp-action="Create">Registrar recurso</a>
@@ -26,7 +27,7 @@
 <div class="dash-grid">
     <section class="panel">
         <div class="panel-title">
-            <h2>Stock por reponer</h2>
+            <h2><span aria-hidden="true">⚠</span> Stock por reponer</h2>
             <a asp-controller="Inventario" asp-action="Index" asp-route-SoloStockBajo="true">Ver todo</a>
         </div>
         @if (!Model.AlertasStock.Any())
@@ -40,7 +41,7 @@
                     <a class="restock-name" asp-controller="Inventario" asp-action="Details" asp-route-id="@i.id_inventario">@i.nombre</a>
                     <div class="restock-meta">Mínimo: @i.stock_minimo @i.unidad_medida</div>
                 </div>
-                <span class="restock-qty @(i.stock_actual == 0 ? "is-empty" : "")">@i.stock_actual @i.unidad_medida</span>
+                <span class="restock-qty @(i.stock_actual == 0 ? "is-empty" : "")">@i.stock_actual @i.unidad_medida <span class="stock-status">@(i.stock_actual == 0 ? "Sin existencias" : "Stock bajo")</span></span>
             </div>
         }
     </section>

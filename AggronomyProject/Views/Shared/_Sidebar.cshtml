@@ -1,6 +1,7 @@
 @{
     string ctrl = (ViewContext.RouteData.Values["controller"] as string) ?? "";
     string Act(string c) => ctrl.Equals(c, StringComparison.OrdinalIgnoreCase) ? "active" : "";
+    string? Actual(string c) => ctrl.Equals(c, StringComparison.OrdinalIgnoreCase) ? "page" : null;
     var esAdmin = User.IsInRole("Administrador");
 }
 <aside class="sidebar" id="sidebar" aria-label="Menú principal">
@@ -8,30 +9,30 @@
         <span class="brand-mark">Agronomía</span>
         <span class="brand-sub">Espinoza</span>
     </a>
-    <nav>
-        <a class="side-link @Act("Home")" asp-controller="Home" asp-action="Index">Panel general</a>
+    <nav aria-label="Secciones del sistema">
+        <a class="side-link @Act("Home")" aria-current="@Actual("Home")" asp-controller="Home" asp-action="Index"><span aria-hidden="true">🏠</span> Panel general</a>
 
         <p class="side-group">Almacén</p>
-        <a class="side-link @Act("Inventario")" asp-controller="Inventario" asp-action="Index">Inventario</a>
-        <a class="side-link @Act("ProductosIniciales")" asp-controller="ProductosIniciales" asp-action="Index">Insumos</a>
-        <a class="side-link @Act("ProductosFinales")" asp-controller="ProductosFinales" asp-action="Index">Cosechas</a>
+        <a class="side-link @Act("Inventario")" aria-current="@Actual("Inventario")" asp-controller="Inventario" asp-action="Index"><span aria-hidden="true">📦</span> Inventario</a>
+        <a class="side-link @Act("ProductosIniciales")" aria-current="@Actual("ProductosIniciales")" asp-controller="ProductosIniciales" asp-action="Index"><span aria-hidden="true">🌾</span> Insumos</a>
+        <a class="side-link @Act("ProductosFinales")" aria-current="@Actual("ProductosFinales")" asp-controller="ProductosFinales" asp-action="Index"><span aria-hidden="true">🌱</span> Cosechas</a>
 
         <p class="side-group">Compras</p>
-        <a class="side-link @Act("Proveedores")" asp-controller="Proveedores" asp-action="Index">Proveedores</a>
-        <a class="side-link @Act("Recursos")" asp-controller="Recursos" asp-action="Index">Recursos</a>
-        <a class="side-link @Act("RecursosAdministrador")" asp-controller="RecursosAdministrador" asp-action="Index">Actas de recepción</a>
+        <a class="side-link @Act("Proveedores")" aria-current="@Actual("Proveedores")" asp-controller="Proveedores" asp-action="Index"><span aria-hidden="true">🚚</span> Proveedores</a>
+        <a class="side-link @Act("Recursos")" aria-current="@Actual("Recursos")" asp-controller="Recursos" asp-action="Index"><span aria-hidden="true">🧰</span> Recursos</a>
+        <a class="side-link @Act("RecursosAdministrador")" aria-current="@Actual("RecursosAdministrador")" asp-controller="RecursosAdministrador" asp-action="Index"><span aria-hidden="true">📋</span> Actas de recepción</a>
 
         <p class="side-group">Personal y finanzas</p>
-        <a class="side-link @Act("Trabajadores")" asp-controller="Trabajadores" asp-action="Index">Trabajadores</a>
-        <a class="side-link @Act("Pagos")" asp-controller="Pagos" asp-action="Index">Pagos</a>
-        <a class="side-link @Act("MetodosPago")" asp-controller="MetodosPago" asp-action="Index">Métodos de pago</a>
+        <a class="side-link @Act("Trabajadores")" aria-current="@Actual("Trabajadores")" asp-controller="Trabajadores" asp-action="Index"><span aria-hidden="true">👥</span> Trabajadores</a>
+        <a class="side-link @Act("Pagos")" aria-current="@Actual("Pagos")" asp-controller="Pagos" asp-action="Index"><span aria-hidden="true">💰</span> Pagos</a>
+        <a class="side-link @Act("MetodosPago")" aria-current="@Actual("MetodosPago")" asp-controller="MetodosPago" asp-action="Index"><span aria-hidden="true">💳</span> Métodos de pago</a>
 
         <p class="side-group">Gestión</p>
-        <a class="side-link @Act("Reportes")" asp-controller="Reportes" asp-action="Index">Reportes</a>
+        <a class="side-link @Act("Reportes")" aria-current="@Actual("Reportes")" asp-controller="Reportes" asp-action="Index"><span aria-hidden="true">📊</span> Reportes</a>
         @if (esAdmin)
         {
-            <a class="side-link @Act("Administracion")" asp-controller="Administracion" asp-action="Index">Operaciones</a>
-            <a class="side-link @Act("Usuarios")" asp-controller="Usuarios" asp-action="Index">Usuarios y roles</a>
+            <a class="side-link @Act("Administracion")" aria-current="@Actual("Administracion")" asp-controller="Administracion" asp-action="Index"><span aria-hidden="true">⚙</span> Operaciones</a>
+            <a class="side-link @Act("Usuarios")" aria-current="@Actual("Usuarios")" asp-controller="Usuarios" asp-action="Index"><span aria-hidden="true">👤</span> Usuarios y roles</a>
         }
     </nav>
 </aside>

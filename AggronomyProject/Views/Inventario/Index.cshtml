@@ -6,7 +6,7 @@
 <div class="page-header">
     <div>
         <h1>Inventario</h1>
-        <p>Existencias del almacén y alertas de stock mínimo</p>
+        <p class="a11y-instruction">Busca un artículo. Para registrar una entrada o salida, pulsa Ajustar stock y revisa antes de confirmar.</p>
     </div>
     <a class="btn btn-primary" asp-action="Create">Nuevo artículo</a>
 </div>
@@ -28,6 +28,7 @@
 
 <div class="table-wrap">
     <table class="data-table" id="tablaInventario">
+        <caption class="visually-hidden">Existencias, unidades y estado de los artículos del inventario</caption>
         <thead>
             <tr>
                 <th>Artículo</th>
@@ -37,7 +38,7 @@
                 <th class="num">Mínimo</th>
                 <th>Actualizado</th>
                 <th>Estado</th>
-                <th></th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -55,7 +56,8 @@
                     <td>@i.productofinal?.nombre</td>
                     <td class="stock-cell">
                         <strong>@i.stock_actual</strong> @i.unidad_medida
-                        <div class="stock-bar @(vacio ? "is-empty" : bajo ? "is-low" : "")"><span style="width:@pct%"></span></div>
+                        <div class="stock-bar @(vacio ? "is-empty" : bajo ? "is-low" : "")" aria-hidden="true"><span style="width:@pct%"></span></div>
+                        <span class="stock-status"><span aria-hidden="true">@(vacio ? "⊘" : bajo ? "⚠" : "✓")</span> @(vacio ? "Sin existencias" : bajo ? "Stock bajo" : "Stock suficiente")</span>
                     </td>
                     <td class="num">@i.stock_minimo</td>
                     <td>@i.fecha_actualizacion.ToString("dd/MM/yyyy")</td>

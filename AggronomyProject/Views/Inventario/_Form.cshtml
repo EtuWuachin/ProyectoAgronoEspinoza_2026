@@ -1,31 +1,41 @@
 @model Inventario
 <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 <input type="hidden" asp-for="id_inventario" />
+<p class="a11y-instruction">Completa los campos obligatorios. Escribe cuántas unidades hay y el mínimo que necesitas. Si hay un error, corrige el campo indicado sin borrar los otros datos.</p>
 <div class="form-grid">
     <div class="mb-3">
-        <label asp-for="nombre" class="form-label">Nombre</label>
-        <input asp-for="nombre" class="form-control" />
+        <label asp-for="nombre" class="form-label">Nombre (obligatorio)</label>
+        <input asp-for="nombre" class="form-control" aria-describedby="nombreAyuda" />
+        <p class="form-hint" id="nombreAyuda">¿Qué producto vas a guardar? Por ejemplo: abono orgánico.</p>
         <span asp-validation-for="nombre" class="text-danger small"></span>
     </div>
     <div class="mb-3">
-        <label asp-for="unidad_medida" class="form-label">Unidad de medida</label>
-        <input asp-for="unidad_medida" class="form-control" placeholder="kg, sacos, litros" />
+        <label asp-for="unidad_medida" class="form-label">Unidad de medida (obligatoria)</label>
+        <input asp-for="unidad_medida" class="form-control" list="unidadesFrecuentes" aria-describedby="unidadAyuda" />
+        <datalist id="unidadesFrecuentes">
+            <option value="kg">⚖ Kilogramos</option>
+            <option value="sacos">📦 Sacos</option>
+            <option value="litros">💧 Litros</option>
+            <option value="unidades">🔢 Unidades</option>
+        </datalist>
+        <p class="form-hint" id="unidadAyuda">Elige kg, sacos, litros o unidades. También puedes escribir otra unidad.</p>
         <span asp-validation-for="unidad_medida" class="text-danger small"></span>
     </div>
     <div class="mb-3 span-all">
-        <label asp-for="descripcion" class="form-label">Descripción</label>
+        <label asp-for="descripcion" class="form-label">Descripción (obligatoria)</label>
         <input asp-for="descripcion" class="form-control" />
         <span asp-validation-for="descripcion" class="text-danger small"></span>
     </div>
     <div class="mb-3">
-        <label asp-for="stock_actual" class="form-label">Stock actual</label>
-        <input asp-for="stock_actual" type="number" min="0" class="form-control" />
+        <label asp-for="stock_actual" class="form-label">Stock actual (obligatorio)</label>
+        <input asp-for="stock_actual" type="number" min="0" step="1" class="form-control" aria-describedby="stockAyuda" />
+        <p class="form-hint" id="stockAyuda">¿Cuántas unidades hay? Escribe cero si todavía no tienes producto.</p>
         <span asp-validation-for="stock_actual" class="text-danger small"></span>
     </div>
     <div class="mb-3">
-        <label asp-for="stock_minimo" class="form-label">Stock mínimo</label>
-        <input asp-for="stock_minimo" type="number" min="0" class="form-control" />
-        <div class="form-hint">Por debajo de este valor aparece la alerta.</div>
+        <label asp-for="stock_minimo" class="form-label">Stock mínimo (obligatorio)</label>
+        <input asp-for="stock_minimo" type="number" min="0" step="1" class="form-control" aria-describedby="minimoAyuda" />
+        <div class="form-hint" id="minimoAyuda">¿Cuántas unidades necesitas como mínimo? La alerta aparece cuando el stock llega a esta cantidad o es menor.</div>
         <span asp-validation-for="stock_minimo" class="text-danger small"></span>
     </div>
     <div class="mb-3">

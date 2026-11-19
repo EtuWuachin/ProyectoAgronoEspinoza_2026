@@ -1,0 +1,13 @@
+<details class="accessibility-tools no-print">
+    <summary>Ayuda visual y de lectura</summary>
+    <div class="accessibility-options" role="group" aria-label="Preferencias de accesibilidad">
+        <span>Tamaño de letra</span>
+        <button type="button" class="btn btn-outline-secondary" data-text-size="normal" aria-pressed="true">Normal</button>
+        <button type="button" class="btn btn-outline-secondary" data-text-size="large" aria-pressed="false">Grande 200 %</button>
+        <button type="button" class="btn btn-outline-secondary" id="altoContraste" aria-pressed="false">Alto contraste</button>
+        <button type="button" class="btn btn-outline-secondary" id="escucharAyuda"><span aria-hidden="true">🔊</span> Escuchar instrucciones</button>
+        <button type="button" class="btn btn-outline-secondary" id="detenerAyuda" disabled>Detener audio</button>
+        <p class="a11y-instruction">El audio es opcional. Solo lee instrucciones y mensajes generales, nunca lo que escribes en los campos.</p>
+        <p id="estadoAudio" role="status" aria-live="polite"></p>
+    </div>
+</details>

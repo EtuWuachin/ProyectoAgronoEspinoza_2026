@@ -7,22 +7,34 @@
             </div>
             <div class="modal-body">
                 <input type="hidden" name="id" />
+                <input type="hidden" name="confirmado" value="false" />
                 <p class="mb-3"><strong id="ajusteNombre"></strong><br /><span class="text-muted">Stock actual: <span id="ajusteStock"></span></span></p>
-                <div class="mb-3">
-                    <label class="form-label" for="ajusteTipo">Movimiento</label>
-                    <select class="form-select" id="ajusteTipo" name="tipo">
-                        <option value="entrada">Entrada (suma al stock)</option>
-                        <option value="salida">Salida (resta del stock)</option>
-                    </select>
+                <div id="ajusteDatos">
+                    <p class="a11y-instruction">Paso 1 de 2. Elige si entró o salió producto. Después escribe la cantidad y revisa el movimiento.</p>
+                    <fieldset class="mb-3">
+                        <legend class="form-label">¿Qué pasó con el producto?</legend>
+                        <div class="movement-options">
+                            <label class="movement-choice"><input type="radio" name="tipo" value="entrada" checked required /> <span aria-hidden="true">＋ ↘ 📦</span> Entró producto</label>
+                            <label class="movement-choice"><input type="radio" name="tipo" value="salida" required /> <span aria-hidden="true">− ↗ 📦</span> Salió producto</label>
+                        </div>
+                    </fieldset>
+                    <label class="form-label" for="ajusteCantidad">Cantidad obligatoria</label>
+                    <input type="number" class="form-control" id="ajusteCantidad" name="cantidad" min="1" step="1" max="2147483647" required aria-describedby="ajusteAyuda ajusteError" />
+                    <p class="form-hint" id="ajusteAyuda">Escribe un número entero mayor que cero. Revisa la unidad junto al stock actual.</p>
                 </div>
-                <div>
-                    <label class="form-label" for="ajusteCantidad">Cantidad</label>
-                    <input type="number" class="form-control" id="ajusteCantidad" name="cantidad" min="1" required />
+                <div id="ajusteConfirmacion" hidden>
+                    <h3 class="h5" id="ajusteResumenTitulo" tabindex="-1">Revisa antes de guardar</h3>
+                    <p class="a11y-instruction">Paso 2 de 2. Comprueba el producto, la cantidad y el stock final. Puedes volver para corregir.</p>
+                    <p id="ajusteResumen"></p>
+                    <p>Stock previsto: <strong id="ajustePrevisto"></strong></p>
                 </div>
+                <p id="ajusteError" class="text-danger" role="alert"></p>
+                <noscript><p>Activa JavaScript para revisar y confirmar este movimiento. No se guardará sin confirmación.</p></noscript>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Guardar movimiento</button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-outline-secondary" id="ajusteVolver" hidden>Volver y corregir</button>
+                <button type="submit" class="btn btn-primary" id="ajusteGuardar">Revisar movimiento</button>
             </div>
         </form>
     </div>

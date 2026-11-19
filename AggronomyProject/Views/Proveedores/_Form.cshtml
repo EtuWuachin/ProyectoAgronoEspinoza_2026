@@ -1,6 +1,7 @@
 @model Proveedor
 <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 <input type="hidden" asp-for="id_proveedor" />
+<p class="a11y-instruction">Los datos del proveedor son obligatorios. Revisa los mensajes junto a cada campo antes de guardar.</p>
 <div class="form-grid">
     <div class="mb-3">
         <label asp-for="nombre" class="form-label">Nombre o razón social</label>
@@ -9,7 +10,8 @@
     </div>
     <div class="mb-3">
         <label asp-for="ruc" class="form-label">RUC</label>
-        <input asp-for="ruc" class="form-control" inputmode="numeric" />
+        <input asp-for="ruc" class="form-control" inputmode="numeric" aria-describedby="rucAyuda" />
+        <p class="form-hint" id="rucAyuda">Escribe el RUC del proveedor, sin espacios.</p>
         <span asp-validation-for="ruc" class="text-danger small"></span>
     </div>
     <div class="mb-3 span-all">
@@ -19,12 +21,13 @@
     </div>
     <div class="mb-3">
         <label asp-for="telefono" class="form-label">Teléfono</label>
-        <input asp-for="telefono" type="tel" class="form-control" />
+        <input asp-for="telefono" type="tel" class="form-control" autocomplete="tel" />
         <span asp-validation-for="telefono" class="text-danger small"></span>
     </div>
     <div class="mb-3">
         <label asp-for="email" class="form-label">Correo electrónico</label>
-        <input asp-for="email" type="email" class="form-control" />
+        <input asp-for="email" type="email" class="form-control" autocomplete="email" aria-describedby="correoAyuda" />
+        <p class="form-hint" id="correoAyuda">Por ejemplo: contacto@proveedor.com.</p>
         <span asp-validation-for="email" class="text-danger small"></span>
     </div>
     <div class="form-check mb-3 span-all">
